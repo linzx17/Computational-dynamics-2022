@@ -1,1 +1,2 @@
-lzx test
+lzx test 1
+test2 22
