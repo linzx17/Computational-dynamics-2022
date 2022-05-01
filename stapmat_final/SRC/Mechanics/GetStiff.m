@@ -36,6 +36,8 @@ for N = 1:cdata.NUMEG % 遍历单元组
         % % NPAR(1) 单元类型：1.桁架 2.平面应力 3.三维实体
         % % NPAR(2) 该单元组内的单元数
         % % NPAR(3) 材料/截面属性数
+        % % NPAR(4) 如果单元为三维实体，则表示单元类型：1.C3D8, 2.C3D20；
+        % %         如果单元不是三维实体，则该位置可以不写或写0
     end
 
     fprintf(IOUT, '\n\n E L E M E N T   D E F I N I T I O N\n');

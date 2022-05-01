@@ -49,6 +49,7 @@ addpath .\SRC\BasicData
 addpath .\SRC\Mechanics
 addpath .\SRC\Mechanics\Truss
 addpath .\SRC\Mechanics\Plane
+addpath .\SRC\Mechanics\3DSolid
 addpath .\SRC\Solver
 end
 
