@@ -62,7 +62,32 @@ for N = 1:NUME
 
     E0 = E(MTYPE);
     nu0 = nu(MTYPE);
-    
+    D0 = E0*(1-nu0) / ( (1+nu0) * (1-2*nu0) );
+    D1 = nu0/(1-nu0);
+    D2 = (1-2*nu0) / ( 2*(1-nu0) );
+    D = D0 * [1, D1, D1, 0, 0, 0;
+              D1, 1, D1, 0, 0, 0;
+              D1, D1, 1, 0, 0, 0;
+               0, 0, 0, D2, 0, 0;
+               0, 0, 0, 0, D2, 0;
+               0, 0, 0, 0, 0, D2]; % sigma = D * epsilon
+
+    node_coor = zeros(sdata.NNODE*3,1); % 一个单元上的节点的xyz坐标
+    node_coor(1:3:end) = XYZ(1:3:end,N);
+    node_coor(2:3:end) = XYZ(2:3:end,N);
+    node_coor(3:3:end) = XYZ(3:3:end,N);
+
+    Ke = zeros(sdata.NNODE*3,sdata.NNODE*3); % 单元刚度阵
+    for i = 1:ng
+        for j = 1:ng
+            for k = 1:ng
+                Jacobi = C3D8Jacobi(node_coor,ksi(i),eta(j),zeta(k));
+                B = C3D8DiffShape(Jacobi,ksi(i),eta(j),zeta(k));
+                Ke = Ke + weight(i)*weight(j)*weight(k) * (B') * D * B * det(Jacobi);
+            end
+        end
+    end
+
 end
 
 end % end of function Assemble()

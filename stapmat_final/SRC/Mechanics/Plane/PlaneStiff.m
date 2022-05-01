@@ -75,7 +75,7 @@ for N = 1:NUME
         for j = 1:ng
             Jacobi = PlaneJacobi(node_coor,ksi(i),eta(j));
             B = PlaneLShape(Jacobi,ksi(i),eta(j));
-            Ke = Ke + weight(i)*weight(j)*B'*D*B*det(Jacobi);
+            Ke = Ke + weight(i)*weight(j)*(B')*D*B*det(Jacobi);
         end
     end
 
