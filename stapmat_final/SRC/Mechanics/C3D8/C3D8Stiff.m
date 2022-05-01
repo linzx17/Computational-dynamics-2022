@@ -81,14 +81,18 @@ for N = 1:NUME
     for i = 1:ng
         for j = 1:ng
             for k = 1:ng
-                Jacobi = C3D8Jacobi(node_coor,ksi(i),eta(j),zeta(k));
-                B = C3D8DiffShape(Jacobi,ksi(i),eta(j),zeta(k));
+                [~,Jacobi,B] = C3D8Jacobi(node_coor,ksi(i),eta(j),zeta(k));
                 Ke = Ke + weight(i)*weight(j)*weight(k) * (B') * D * B * det(Jacobi);
             end
         end
     end
 
+%   SRC/Mechanics/ADDBAN.m
+    ADDBAN(Ke,LM(:,N));
 end
+
+% The third time stamp
+cdata.TIM(3, :) = clock;
 
 end % end of function Assemble()
 
