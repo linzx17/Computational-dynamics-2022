@@ -25,7 +25,7 @@ classdef SolutionData
         GW3 = double([5.0/9.0, 8.0/9.0, 5.0/9.0]);
     end
     properties
-        NG;
+        NGaussian;
         GC;
         GW;
         % Basic data

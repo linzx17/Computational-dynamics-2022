@@ -3,6 +3,7 @@
 % % - Call procedures:
 % %        InitPlane() % 定义每个单元上的节点数和每个节点的自由度
 % %        ReadPlane()
+% %        Addres()
 % % 
 function PlaneStiff()
 
@@ -42,7 +43,8 @@ global sdata;
 sdata.NNODE = 4;% 一个单元上的节点数
 sdata.NDOF = 2;% 每个节点的自由度
 
-end
+end % end of function InitPlane
+
 
 % Assemble structure stiffness matrix
 function Assemble()
@@ -51,23 +53,12 @@ global cdata;
 sdata.STIFF = zeros(sdata.NWK, 1, 'double');
 
 NUME = sdata.NUME; MATP = sdata.MATP; XYZ = sdata.XYZ; 
-E = sdata.E; nu = sdata.nu; LM = sdata.LM;
-if sdata.NG == 1
-    sdata.GC = sdata.GC1;
-    sdata.GW = sdata.GW1;
-elseif sdata.NG == 2
-    sdata.GC = sdata.GC2;
-    sdata.GW = sdata.GW2;
-else
-    sdata.GC = sdata.GC3;
-    sdata.GW = sdata.GW3;
-end
-ng = sdata.NG;
-ksi = sdata.GC;
-eta = sdata.GC;
-weight = sdata.GW;
+E = sdata.E; nu = sdata.nu; NGaussian = sdata.NGaussian; LM = sdata.LM;
 for N = 1:NUME
     MTYPE = MATP(N);
+    
+    [ng,ksi,eta,weight] = GetGaussianIntInfo( NGaussian(MTYPE) );
+    
     E0 = E(MTYPE);
     nu0 = nu(MTYPE);
     D0 = E0/(1-nu0^2);
@@ -96,3 +87,26 @@ end
 cdata.TIM(3, :) = clock;
 
 end
+
+
+% % 输入数字
+% % 输出高斯积分点个数ng，高斯积分点的坐标ksi,eta，权重weight
+function [ng,ksi,eta,weight] = GetGaussianIntInfo(num)
+    global sdata;
+    if num == 1
+        ng = 1;
+        ksi = sdata.GC1;
+        eta = sdata.GC1;
+        weight = sdata.GW1;
+    elseif num == 2
+        ng = 2;
+        ksi = sdata.GC2;
+        eta = sdata.GC2;
+        weight = sdata.GW2;
+    else
+        ng = 3;
+        ksi = sdata.GC3;
+        eta = sdata.GC3;
+        weight = sdata.GW3;
+    end
+end % end of function GetGaussianIntInfo
