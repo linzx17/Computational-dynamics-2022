@@ -28,7 +28,7 @@ classdef SolutionData
         GC;
         GW;
         % Basic data
-        ID;       % int, ID(3, NUMNP), Boundary condition codes (0=free, 1=deleted)
+        ID;       % int, ID(3, NUMNP), Boundary condition codes (0=free, 1=deleted), ID数组的第1、2、3行分别表示xyz方向自由度，第j(1<=j<=cdata.NUMNP)列表示第j个节点
         IDOrigin; % int, backups of ID after computing of NEQ
         X;        % double, X(NUMNP), X coordinates
         Y;        % double, Y(NUMNP), Y coordinates

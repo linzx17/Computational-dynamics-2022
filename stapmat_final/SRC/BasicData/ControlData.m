@@ -26,7 +26,7 @@ classdef ControlData
         LL;            % Load case number
         NLOAD;         % The number of concentrated loads applied in this load case
 
-        MODEX;         % Solution mode: 0 - data check only; 1 - execution
+        MODEX;         % Solution mode: 0 - data check only; 1 - execution; 2 - MATLAB稀疏矩阵左除求解
 
         TIM;           % Timing information
         HED;           % Master heading information for usr in labeling the output
