@@ -23,14 +23,16 @@ global sdata;
 IIN = cdata.IIN;
 IOUT = cdata.IOUT;
 
-if (cdata.NPAR(3) == 0) cdata.NPAR(3) = 1; end
+if (cdata.NPAR(3) == 0)
+    cdata.NPAR(3) = 1;
+end
 fprintf(IOUT, '\n M A T E R I A L   D E F I N I T I O N\n');
 fprintf(IOUT, '\n NUMBER OF DIFFERENT SETS OF MATERIAL\n');
 fprintf(IOUT, ' AND CROSS-SECTIONAL  CONSTANTS  . . . .( NPAR(3) ) . . = %10d\n', ...
     cdata.NPAR(3));
-fprintf(IOUT, '  SET       YOUNG''S     POSSION RATIO\n');
+fprintf(IOUT, '     SET          YOUNG''S       POSSION RATIO\n');
 fprintf(IOUT, ' NUMBER     MODULUS              \n');
-fprintf(IOUT, '               E              nu\n');
+fprintf(IOUT, '                           E                       nu\n');
 
 
 % Read material datas
@@ -44,7 +46,7 @@ for I = 1:cdata.NPAR(3)% 材料/截面属性数
     N = round(tmp(1));
     sdata.E(N) = tmp(2);
     sdata.nu(N) = tmp(3);
-    fprintf(IOUT, '%5d    %12.5e  %14.6e\n', N, tmp(2), tmp(3));
+    fprintf(IOUT, ' %5d         %12.5e    %14.6e\n', N, tmp(2), tmp(3));
 end
 
 end
@@ -65,7 +67,7 @@ fprintf(IOUT, '      NUMBER-N          I1                I2                 I3  
 
 % Get Position data
 NUME = cdata.NPAR(2);
-sdata.XYZ = zeros(12, NUME, 'double');
+sdata.XYZ = zeros(12, NUME, 'double'); % 每一列为一个单元，12行为4个节点上12个xyz坐标
 sdata.MATP = zeros(NUME, 1, 'int64');                 % the type of material
 sdata.LM = zeros(8, NUME, 'double');                  % connectivity matrix
 sdata.MHT = zeros(sdata.NEQ, 1, 'int64');

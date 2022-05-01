@@ -21,10 +21,10 @@ sdata = SolutionData;
 
 % Read InPut file
 fname = 'hw3_2.in';              % Specify the file name
-ReadFile(fname);
+ReadFile(fname); % 读取标题行、控制行、节点数据、载荷数据
 
 % Write basic data of program 
-WriteParasOut();
+WriteParasOut(); % 创建输出文件，
 
 % Form the stiffness matrix
 GetStiff();

@@ -118,7 +118,7 @@ for II = 1:NUMNP
     if (ID(2, II) ~= 0) D(2) = DIS(ID(2, II)); end
     if (ID(3, II) ~= 0) D(3) = DIS(ID(3, II)); end
     
-    fprintf(IOUT, ' %10d        %18.6e%18.6e%18.6e\n', II, D(1), D(2), D(3));
+    fprintf(IOUT, ' %10d             %18.6e     %18.6e     %18.6e\n', II, D(1), D(2), D(3));
 end
 
 end

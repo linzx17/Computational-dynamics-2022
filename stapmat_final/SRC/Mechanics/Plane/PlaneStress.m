@@ -28,17 +28,11 @@ for N = 1:NUME
     D = D0*[1, nu0, 0;
         nu0, 1, 0;
         0, 0, (1-nu0)/2];% sigma = D * epsilon
+    
+    node_coor = zeros(8,1);% 四个节点的xy坐标
+    node_coor(1:2:end) = XYZ(1:3:end,N);
+    node_coor(2:2:end) = XYZ(2:3:end,N);
 
-    X1 = XYZ(1,N);
-    Y1 = XYZ(2,N);
-    X2 = XYZ(4,N);
-    Y2 = XYZ(5,N);
-    X3 = XYZ(7,N);
-    Y3 = XYZ(8,N);
-    X4 = XYZ(10,N);
-    Y4 = XYZ(11,N);
-    Jacobi = [(X2-X1)/2, 0;
-            0, (Y4-Y1)/2];
     ae = zeros(8,1);% 节点位移
     for i = 1:8
         if LM(i,N) > 0
@@ -54,6 +48,7 @@ for N = 1:NUME
 
     for i = 1:ng
         for j = 1:ng
+            Jacobi = PlaneJacobi(node_coor,ksi(j),eta(i));
             B = PlaneLShape(Jacobi,ksi(j),eta(i));
             gpnum = (i-1)*ng+j;%高斯点计数
             strain_e(:,gpnum) = B*ae;

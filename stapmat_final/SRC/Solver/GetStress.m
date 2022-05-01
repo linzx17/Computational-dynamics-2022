@@ -24,7 +24,7 @@ global cdata;
 NUMEG = cdata.NUMEG;
 IOUT = cdata.IOUT;
 
-for N = 1:NUMEG
+for N = 1:NUMEG % 单元组数
     NPAR1 = cdata.NPAR(1);
     if (NPAR1 == 1) 
         TrussStress(NUM, N);
