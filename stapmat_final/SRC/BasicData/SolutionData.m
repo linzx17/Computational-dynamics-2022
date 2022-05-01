@@ -13,7 +13,7 @@
 
 classdef SolutionData
     properties (Constant)
-        NG = 2;% 选择高斯积分点个数
+%         NG = 2;% PlaneStress默认选择高斯积分点个数
         
         % Gauss coord, 1D to 3D
         GC1 = double(0.0);
@@ -25,6 +25,7 @@ classdef SolutionData
         GW3 = double([5.0/9.0, 8.0/9.0, 5.0/9.0]);
     end
     properties
+        NG;
         GC;
         GW;
         % Basic data
