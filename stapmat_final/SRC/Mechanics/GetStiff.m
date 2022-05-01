@@ -55,7 +55,7 @@ for N = 1:cdata.NUMEG % 遍历单元组
     elseif (NPAR1 == 2) % 平面应力单元
         PlaneStiff();
     elseif (NPAR1 == 3) % 三维实体单元
-        SolidStiff();
+        Solid3DStiff();
     else 
         error(' *** ERROR *** No Such Element');
     end

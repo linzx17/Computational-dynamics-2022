@@ -31,7 +31,7 @@ end
 
 % ----------------------- Functions -----------------------------------
 
-% Init parameters of truss element
+% Init parameters of PlaneStress element
 function InitPlane()
 global sdata;
 sdata.NNODE = 4;% 一个单元上的节点数

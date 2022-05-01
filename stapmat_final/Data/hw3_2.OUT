@@ -52,3 +52,9 @@
 
 
  E L E M E N T   D E F I N I T I O N
+
+ ELEMENT TYPE  . . . . . . . . . . . . .( NPAR(1) ) . . =          2
+     EQ.1, TRUSS ELEMENTS
+     EQ.2, PLANE STRESS
+     EQ.3, SOLID
+ NUMBER OF ELEMENTS. . . . . . . . . . .( NPAR(2) ) . . =          2
