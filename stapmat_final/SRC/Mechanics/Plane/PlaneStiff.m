@@ -1,4 +1,9 @@
-
+% % Called by GetStiff.m
+% % 
+% % - Call procedures:
+% %        InitPlane() % 定义每个单元上的节点数和每个节点的自由度
+% %        ReadPlane()
+% % 
 function PlaneStiff()
 
 % Init variables of the element

@@ -63,18 +63,18 @@
 
  NUMBER OF DIFFERENT SETS OF MATERIAL
  AND CROSS-SECTIONAL  CONSTANTS  . . . .( NPAR(3) ) . . =          1
-     SET          YOUNG'S       POSSION RATIO
- NUMBER     MODULUS              
+     SET          YOUNG'S            POSSION         NUMBER OF GAUSSIAN
+ NUMBER     MODULUS             RATIO             INTEGRATION POINT   
                            E                       nu
-     1          2.00000e+09      3.000000e-01
+      1           2.00000e+09      3.000000e-01                       2
 
 
  E L E M E N T   I N F O R M A T I O N
 
-      ELEMENT          NODE          NODE          NODE          NODE          MATERIAL
-      NUMBER-N          I1                I2                 I3                I4          SET NUMBER
-            1                     1                 3                 4                  2                    1
-            2                     3                 5                 6                  4                    1
+      ELEMENT 	 NODE 	 NODE 	 NODE 	 NODE 	   MATERIAL
+      NUMBER-N 	   I1 	    I2 	    I3 	    I4 	 SET NUMBER
+            1                     1               3               4               2               1
+            2                     3               5               6               4               1
 
 
   TOTAL SYSTEM DATA
@@ -114,9 +114,9 @@
 
  S O L U T I O N   T I M E   L O G   I N   S E C
 
-     TIME FOR INPUT PHASE  . . . . . . . . . . . . . . =         0.04
-     TIME FOR CALCULATION OF STIFFNESS MATRIX  . . . . =         0.01
+     TIME FOR INPUT PHASE  . . . . . . . . . . . . . . =         0.03
+     TIME FOR CALCULATION OF STIFFNESS MATRIX  . . . . =         1.32
      TIME FOR FACTORIZATION OF STIFFNESS MATRIX  . . . =         0.00
-     TIME FOR LOAD CASE SOLUTIONS  . . . . . . . . . . =         0.01
+     TIME FOR LOAD CASE SOLUTIONS  . . . . . . . . . . =         0.00
 
-      T O T A L   S O L U T I O N   T I M E  . . . . . =         0.05
+      T O T A L   S O L U T I O N   T I M E  . . . . . =         1.35
