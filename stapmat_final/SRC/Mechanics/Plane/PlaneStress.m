@@ -2,6 +2,7 @@
 % % Called by: SRC/Solver/GetStress.m
 % % 在out文件中输出高斯积分点上的应力应变
 
+% % 输入 载荷工况数NUM，单元组数NG
 function PlaneStress(NUM,NG)
 
 

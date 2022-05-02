@@ -30,6 +30,10 @@ for N = 1:NUMEG % 单元组数
         TrussStress(NUM, N);
     elseif (NPAR1 == 2)
         PlaneStress(NUM, N);
+    elseif (NPAR1 == 3)
+        C3D8Stress(NUM, N);
+    elseif (NPAR1 == 4)
+        C2D20Stress(NUM, N);
     else 
         error(' *** ERROR *** No Such Element');
     end 

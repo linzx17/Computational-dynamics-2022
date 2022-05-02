@@ -45,7 +45,7 @@ end
 cdata.TIM(4,:) = clock;
 
 % Solve 
-for L = 1:NLCASE
+for L = 1:NLCASE % 载荷工况数
 
 %   Solve the equilibrium equations to calculate the displacements
 if (MODEX == 1)
@@ -98,7 +98,7 @@ SPSTIFF = sparse(IIndex, JIndex, STIFF, NEQ, NEQ);
 end
 
 % Print Displacements
-function WriteDis(NUM)
+function WriteDis(NUM) % 第NUM个载荷工况
 
 % Get global data
 global cdata;
@@ -114,9 +114,15 @@ fprintf(IOUT, ['\n\n D I S P L A C E M E N T S\n' ...
 D = zeros(3, 1, 'double');
 for II = 1:NUMNP
     D(:) = 0;
-    if (ID(1, II) ~= 0) D(1) = DIS(ID(1, II)); end
-    if (ID(2, II) ~= 0) D(2) = DIS(ID(2, II)); end
-    if (ID(3, II) ~= 0) D(3) = DIS(ID(3, II)); end
+    if (ID(1, II) ~= 0)
+        D(1) = DIS(ID(1, II));
+    end
+    if (ID(2, II) ~= 0)
+        D(2) = DIS(ID(2, II));
+    end
+    if (ID(3, II) ~= 0)
+        D(3) = DIS(ID(3, II));
+    end
     
     fprintf(IOUT, ' %10d             %18.6e     %18.6e     %18.6e\n', II, D(1), D(2), D(3));
 end

@@ -107,8 +107,9 @@ for N = 1:NUME
 
 %   Compute connectivity matrix
     for i2 = 1:sdata.NNODE
-        LM( i2*2-1, N ) = ID( 1, II(i2) );
-        LM( i2*2, N) = ID( 2, II(i2) );
+        LM( i2*2-2, N ) = ID( 1, II(i2) );
+        LM( i2*2-1, N ) = ID( 2, II(i2) );
+        LM( i2*2  , N ) = ID( 3, II(i2) );
     end
 
 %   Updata column heights and bandwidth
