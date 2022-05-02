@@ -16,9 +16,8 @@ U = sdata.DIS(:, NUM);
 
 fprintf(IOUT, ['\n\n  S T R A I N AND S T R E S S  C A L C U L A T I O N S  F O R  ' ...
     'E L E M E N T  G R O U P %4d\n\n' ... 
-    '  ELEMENT        GAUSS POINT                                    STRAIN                                                                       ' ...
-    '     STRESS\n' ...
-    '  NUMBER            NUMBER            EPSILON_X         EPSILON_Y         EPSILON_Z         GAMMA_XY        GAMMA_YZ         GAMMA_ZX              ' ...
+    '  ELEMENT        GAUSS POINT                      \t\t\t     STRAIN    \t\t\t     STRESS\n' ...
+    '  NUMBER            NUMBER           EPSILON_X         EPSILON_Y         EPSILON_Z         GAMMA_XY        GAMMA_YZ         GAMMA_ZX              ' ...
     '  SIGMA_X            SIGMA_Y            SIGMA_Z            TAU_XY             TAU_YZ             TAU_ZX\n'], NG);
 
 for N = 1:NUME
@@ -45,6 +44,11 @@ for N = 1:NUME
     
     n_node_dof = sdata.NNODE*sdata.NDOF; % 一个单元上的节点自由度数
     ae = zeros(n_node_dof,1); % 第N个单元上的节点位移
+    for i = 1:n_node_dof
+        if LM(i,N) > 0
+            ae(i) = U(LM(i,N));
+        end
+    end
     strain_e = zeros(6,ng^3);
     stress_e = zeros(6,ng^3);
     gpnum = 0; % 高斯积分点计数
@@ -52,7 +56,7 @@ for N = 1:NUME
     for i = 1:ng
         for j = 1:ng
             for k = 1:ng
-                [N,Jacobi,B] = C3D8NJB(node_coor,ksi(i),eta(j),zeta(k));
+                [~,~,B] = C3D8NJB(node_coor,ksi(i),eta(j),zeta(k));
                 gpnum = gpnum + 1;
                 strain_e(:,gpnum) = B*ae;
                 stress_e(:,gpnum) = D*strain_e(:,gpnum);
