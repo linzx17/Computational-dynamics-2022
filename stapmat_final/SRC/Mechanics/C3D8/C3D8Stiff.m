@@ -58,7 +58,7 @@ E = sdata.E; nu = sdata.nu; NGaussian = sdata.NGaussian; LM = sdata.LM;
 for N = 1:NUME
     MTYPE = MATP(N);
 
-    [ng,ksi,eta,zeta,weight] = GetGaussianIntInfo( NGaussian(MTYPE) );
+    [ng,ksi,eta,zeta,weight] = GetC3D8GaussianIntInfo( NGaussian(MTYPE) );
 
     E0 = E(MTYPE);
     nu0 = nu(MTYPE);
@@ -81,7 +81,7 @@ for N = 1:NUME
     for i = 1:ng
         for j = 1:ng
             for k = 1:ng
-                [~,Jacobi,B] = C3D8Jacobi(node_coor,ksi(i),eta(j),zeta(k));
+                [~,Jacobi,B] = C3D8NJB(node_coor,ksi(i),eta(j),zeta(k));
                 Ke = Ke + weight(i)*weight(j)*weight(k) * (B') * D * B * det(Jacobi);
             end
         end
@@ -95,28 +95,3 @@ end
 cdata.TIM(3, :) = clock;
 
 end % end of function Assemble()
-
-% % 输入数字
-% % 输出高斯积分点个数ng，高斯积分点的坐标ksi,eta，权重weight
-function [ng,ksi,eta,zeta,weight] = GetGaussianIntInfo(num)
-    global sdata;
-    if num == 1
-        ng = 1;
-        ksi = sdata.GC1;
-        eta = sdata.GC1;
-        zeta = sdata.GC1;
-        weight = sdata.GW1;
-    elseif num == 2
-        ng = 2;
-        ksi = sdata.GC2;
-        eta = sdata.GC2;
-        zeta = sdata.GC2;
-        weight = sdata.GW2;
-    else
-        ng = 3;
-        ksi = sdata.GC3;
-        eta = sdata.GC3;
-        zeta = sdata.GC3;
-        weight = sdata.GW3;
-    end
-end % end of function GetGaussianIntInfo

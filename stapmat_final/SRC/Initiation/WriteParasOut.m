@@ -20,7 +20,7 @@ function WriteParasOut()
 global cdata;
 global sdata;
 % Open file
-cdata.IOUT = fopen('.\Data\hw3_2.OUT', 'w');
+cdata.IOUT = fopen('.\Data\C3D8_test1.OUT', 'w');
 IOUT = cdata.IOUT;
 
 fprintf(IOUT, ['\n %s \n\n'...

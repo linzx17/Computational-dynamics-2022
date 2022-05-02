@@ -47,13 +47,13 @@ sdata.NUMMAT = cdata.NPAR(3);% 材料/截面属性数
 NUMMAT = cdata.NPAR(3);
 sdata.E = zeros(NUMMAT, 1, 'double');% 杨氏模量
 sdata.nu = zeros(NUMMAT, 1, 'double');% 泊松比
-sdata.NG = zeros(NUMMAT, 1, 'int64');% 高斯积分点个数
+sdata.NGaussian = zeros(NUMMAT, 1, 'int64');% 高斯积分点个数
 for I = 1:cdata.NPAR(3)% 材料/截面属性数 
     tmp = str2num(fgetl(IIN));
     N = round(tmp(1));
     sdata.E(N) = tmp(2);
     sdata.nu(N) = tmp(3);
-    sdata.NG(N) = tmp(4);
+    sdata.NGaussian(N) = tmp(4);
     fprintf(IOUT, ' %5d         %12.5e    %14.6e     %5d\n', N, tmp(2), tmp(3), tmp(4));
 end
 
@@ -107,9 +107,9 @@ for N = 1:NUME
 
 %   Compute connectivity matrix
     for i2 = 1:sdata.NNODE
-        LM( i2*2-2, N ) = ID( 1, II(i2) );
-        LM( i2*2-1, N ) = ID( 2, II(i2) );
-        LM( i2*2  , N ) = ID( 3, II(i2) );
+        LM( i2*3-2, N ) = ID( 1, II(i2) );
+        LM( i2*3-1, N ) = ID( 2, II(i2) );
+        LM( i2*3  , N ) = ID( 3, II(i2) );
     end
 
 %   Updata column heights and bandwidth
