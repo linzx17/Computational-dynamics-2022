@@ -37,23 +37,24 @@ fprintf(IOUT, '\n M A T E R I A L   D E F I N I T I O N\n');
 fprintf(IOUT, '\n NUMBER OF DIFFERENT SETS OF MATERIAL\n');
 fprintf(IOUT, ' AND CROSS-SECTIONAL  CONSTANTS  . . . .( NPAR(3) ) . . = %10d\n', ...
     cdata.NPAR(3));
-fprintf(IOUT, '     SET          YOUNG''S       POSSION RATIO         NUMBER OF GAUSS POINT\n');
+fprintf(IOUT, '     SET          YOUNG''S       POSSION RATIO         DENSITY\n');
 fprintf(IOUT, ' NUMBER     MODULUS              \n');
-fprintf(IOUT, '                           E                       nu              NG\n');
+fprintf(IOUT, '                           E                       nu              rho\n');
 
 % Read material datas
 sdata.NUME = cdata.NPAR(2);% 该单元组内的单元数
 sdata.NUMMAT = cdata.NPAR(3);% 材料/截面属性数
 NUMMAT = cdata.NPAR(3);
+sdata.NGaussian = cdata.NPAR(4); % 该单元类型的高斯积分阶数
 sdata.E = zeros(NUMMAT, 1, 'double');% 杨氏模量
 sdata.nu = zeros(NUMMAT, 1, 'double');% 泊松比
-sdata.NGaussian = zeros(NUMMAT, 1, 'int64');% 高斯积分点个数
+sdata.rho = zeros(NUMMAT, 1, 'double');% 密度
 for I = 1:cdata.NPAR(3)% 材料/截面属性数 
     tmp = str2num(fgetl(IIN));
     N = round(tmp(1));
     sdata.E(N) = tmp(2);
     sdata.nu(N) = tmp(3);
-    sdata.NGaussian(N) = tmp(4);
+    sdata.rho(N) = tmp(4);
     fprintf(IOUT, ' %5d         %12.5e    %14.6e     %5d\n', N, tmp(2), tmp(3), tmp(4));
 end
 

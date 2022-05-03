@@ -72,10 +72,12 @@ for N = 1:NUME
                0, 0, 0, 0, D2, 0;
                0, 0, 0, 0, 0, D2]; % sigma = D * epsilon
 
-    node_coor = zeros(sdata.NNODE*3,1); % 一个单元上的节点的xyz坐标
-    node_coor(1:3:end) = XYZ(1:3:end,N);
-    node_coor(2:3:end) = XYZ(2:3:end,N);
-    node_coor(3:3:end) = XYZ(3:3:end,N);
+    node_coor = XYZ(:,N); % 该单元上的节点的XYZ坐标
+
+%     node_coor = zeros(sdata.NNODE*3,1); % 一个单元上的节点的xyz坐标
+%     node_coor(1:3:end) = XYZ(1:3:end,N);
+%     node_coor(2:3:end) = XYZ(2:3:end,N);
+%     node_coor(3:3:end) = XYZ(3:3:end,N);
 
     Ke = zeros(sdata.NNODE*3,sdata.NNODE*3); % 单元刚度阵
     for i = 1:ng

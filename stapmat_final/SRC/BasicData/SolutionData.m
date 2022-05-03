@@ -59,6 +59,7 @@ classdef SolutionData
         NUMMAT;     % int, the number of types of material 
         E;          % double array, Young's Modulus
         nu;         % double array, possion ratio
+        rho;        % double array, density
         AREA;       % double array, cross-sectional constants
         MATP;       % int, MATP(NUME), types of elements
         
