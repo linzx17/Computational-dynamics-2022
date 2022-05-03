@@ -6,7 +6,7 @@
       NUMBER OF NODAL POINTS . . . . . . . . . . (NUMNP)  =          8 
       NUMBER OF ELEMENT GROUPS . . . . . . . . . (NUMEG)  =          1 
       NUMBER OF LOAD CASES . . . . . . . . . . . (NLCASE) =          1 
-      SOLUTION MODE  . . . . . . . . . . . . . . (MODEX)  =          2 
+      SOLUTION MODE  . . . . . . . . . . . . . . (MODEX)  =          1 
          EQ.0, DATA CHECK 
          EQ.1, EXECUTION - 一维变带宽存储刚度矩阵
          EQ.2, EXECUTION - Matlab稀疏矩阵左除
@@ -121,8 +121,8 @@
  S O L U T I O N   T I M E   L O G   I N   S E C
 
      TIME FOR INPUT PHASE  . . . . . . . . . . . . . . =         0.04
-     TIME FOR CALCULATION OF STIFFNESS MATRIX  . . . . =        21.23
-     TIME FOR FACTORIZATION OF STIFFNESS MATRIX  . . . =        47.27
-     TIME FOR LOAD CASE SOLUTIONS  . . . . . . . . . . =        85.91
+     TIME FOR CALCULATION OF STIFFNESS MATRIX  . . . . =         2.55
+     TIME FOR FACTORIZATION OF STIFFNESS MATRIX  . . . =         0.05
+     TIME FOR LOAD CASE SOLUTIONS  . . . . . . . . . . =         0.05
 
-      T O T A L   S O L U T I O N   T I M E  . . . . . =       154.45
+      T O T A L   S O L U T I O N   T I M E  . . . . . =         2.68
