@@ -112,6 +112,7 @@ fprintf(IOUT, ['\n\n D I S P L A C E M E N T S\n' ...
     '\n       NODE           X-DISPLACEMENT    Y-DISPLACEMENT    Z-DISPLACEMENT\n']);
 
 D = zeros(3, 1, 'double');
+displacement_node = zeros(NUMNP,3);
 for II = 1:NUMNP
     D(:) = 0;
     if (ID(1, II) ~= 0)
@@ -123,7 +124,7 @@ for II = 1:NUMNP
     if (ID(3, II) ~= 0)
         D(3) = DIS(ID(3, II));
     end
-    
+    displacement_node(II,:) = D';
     fprintf(IOUT, ' %10d             %18.6e     %18.6e     %18.6e\n', II, D(1), D(2), D(3));
 end
 

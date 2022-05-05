@@ -20,7 +20,7 @@ cdata = ControlData;
 sdata = SolutionData;
 
 % Read InPut file
-fname = 'C3D8_test1.in';              % Specify the file name
+fname = 'CJD_C3D8.in';              % Specify the file name
 ReadFile(fname); % 读取标题行、控制行、节点数据、载荷数据
 
 % Write basic data of program 
