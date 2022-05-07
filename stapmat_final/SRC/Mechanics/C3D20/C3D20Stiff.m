@@ -54,4 +54,40 @@ sdata.STIFF = zeros(sdata.NWK, 1, 'double');
 NUME = sdata.NUME; MATP = sdata.MATP; XYZ = sdata.XYZ; 
 E = sdata.E; nu = sdata.nu; NGaussian = sdata.NGaussian; LM = sdata.LM;
 
+for N = 1:NUME
+    MTYPE = MATP(N);
 
+    [ng,ksi,eta,zeta,weight] = Get3DGaussianIntInfo( NGaussian );
+
+    E0 = E(MTYPE);
+    nu0 = nu(MTYPE);
+    D0 = E0*(1-nu0) / ( (1+nu0) * (1-2*nu0) );
+    D1 = nu0/(1-nu0);
+    D2 = (1-2*nu0) / ( 2*(1-nu0) );
+    D = D0 * [1, D1, D1, 0, 0, 0;
+              D1, 1, D1, 0, 0, 0;
+              D1, D1, 1, 0, 0, 0;
+               0, 0, 0, D2, 0, 0;
+               0, 0, 0, 0, D2, 0;
+               0, 0, 0, 0, 0, D2]; % sigma = D * epsilon
+
+    node_coor = XYZ(:,N); % 该单元上的节点的XYZ坐标
+
+    Ke = zeros(sdata.NNODE*3,sdata.NNODE*3); % 单元刚度阵
+    for i = 1:ng
+        for j = 1:ng
+            for k = 1:ng
+                [~,Jacobi,B] = C3D20NJB(node_coor,ksi(i),eta(j),zeta(k));
+                Ke = Ke + weight(i)*weight(j)*weight(k) * (B') * D * B * det(Jacobi);
+            end
+        end
+    end
+
+    % SRC/Mechanics/ADDBAN.m
+    ADDBAN(Ke,LM(:,N));
+end
+
+% The third time stamp
+cdata.TIM(3, :) = clock;
+
+end % end of function Assemble()

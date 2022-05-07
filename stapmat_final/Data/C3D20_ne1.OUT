@@ -1,0 +1,164 @@
+
+ C3D20_ne1 
+
+ C O N T R O L   I N F O R M A T I O N
+
+      NUMBER OF NODAL POINTS . . . . . . . . . . (NUMNP)  =         20 
+      NUMBER OF ELEMENT GROUPS . . . . . . . . . (NUMEG)  =          1 
+      NUMBER OF LOAD CASES . . . . . . . . . . . (NLCASE) =          1 
+      SOLUTION MODE  . . . . . . . . . . . . . . (MODEX)  =          2 
+         EQ.0, DATA CHECK 
+         EQ.1, EXECUTION - 一维变带宽存储刚度矩阵
+         EQ.2, EXECUTION - Matlab稀疏矩阵左除
+
+
+ N O D A L   P O I N T   D A T A 
+
+       NODE                BOUNDARY                           NODAL POINT
+      NUMBER     CONDITION  CODES                     COORDINATES
+                              X    Y    Z               X               Y              Z
+         1                   1    1    1              0.000        0.000        0.000
+         2                   0    1    1              2.000        0.000        0.000
+         3                   0    0    1              2.000        2.000        0.000
+         4                   1    0    1              0.000        2.000        0.000
+         5                   1    1    0              0.000        0.000        2.000
+         6                   0    1    0              2.000        0.000        2.000
+         7                   0    0    0              2.000        2.000        2.000
+         8                   1    0    0              0.000        2.000        2.000
+         9                   0    1    1              1.000        0.000        0.000
+        10                   0    0    1              2.000        1.000        0.000
+        11                   0    0    1              1.000        2.000        0.000
+        12                   1    0    1              0.000        1.000        0.000
+        13                   0    1    0              1.000        0.000        2.000
+        14                   0    0    0              2.000        1.000        2.000
+        15                   0    0    0              1.000        2.000        2.000
+        16                   1    0    0              0.000        1.000        2.000
+        17                   1    1    0              0.000        0.000        1.000
+        18                   0    1    0              2.000        0.000        1.000
+        19                   0    0    0              2.000        2.000        1.000
+        20                   1    0    0              0.000        2.000        1.000
+
+
+ EQUATION NUMBERS
+
+         NODE         DEGREES OF FREEDOM
+       NUMBER
+          N                  X         Y         Z
+          1                   0         0         0
+          2                   1         0         0
+          3                   2         3         0
+          4                   0         4         0
+          5                   0         0         5
+          6                   6         0         7
+          7                   8         9        10
+          8                   0        11        12
+          9                  13         0         0
+         10                  14        15         0
+         11                  16        17         0
+         12                   0        18         0
+         13                  19         0        20
+         14                  21        22        23
+         15                  24        25        26
+         16                   0        27        28
+         17                   0         0        29
+         18                  30         0        31
+         19                  32        33        34
+         20                   0        35        36
+
+
+ L O A D   C A S E   D A T A
+
+     LOAD CASE NUMBER . . . . . . . =          1
+     NUMBER OF CONCENTRATED LOADS . =          8
+
+
+         NODE           DIRECTION           LOAD
+       NUMBER                               MAGNITUDE
+            2                      1              -1.00000e+00            3                      1              -1.00000e+00            6                      1              -1.00000e+00            7                      1              -1.00000e+00           10                      1               4.00000e+00           14                      1               4.00000e+00           18                      1               4.00000e+00           19                      1               4.00000e+00
+
+ E L E M E N T   G R O U P   D A T A
+
+
+ E L E M E N T   D E F I N I T I O N
+
+ ELEMENT TYPE  . . . . . . . . . . . . .( NPAR(1) ) . . =          4
+     EQ.1, TRUSS ELEMENTS
+     EQ.2, PLANE STRESS
+     EQ.3, SOLID C3D8
+     EQ.4, SOLID C3D20
+ NUMBER OF ELEMENTS. . . . . . . . . . .( NPAR(2) ) . . =          1
+
+ M A T E R I A L   D E F I N I T I O N
+
+ NUMBER OF DIFFERENT SETS OF MATERIAL
+ AND CROSS-SECTIONAL  CONSTANTS  . . . .( NPAR(3) ) . . =          1
+     SET          YOUNG'S       POSSION RATIO         DENSITY
+ NUMBER     MODULUS              
+                           E                       nu              rho
+     1          2.00000e+05      3.000000e-01     1.000000e-06
+
+
+ E L E M E N T   I N F O R M A T I O N
+
+      ELEMENT 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	   MATERIAL
+      NUMBER-N 	   I1 	    I2 	    I3 	    I4 	    I5 	    I6 	    I7 	    I8 	 SET NUMBER
+            1                     1               2               3               4               5               6               7               8               1
+
+
+  TOTAL SYSTEM DATA
+
+     NUMBER OF EQUATIONS . . . . . . . . . . . . . .(NEQ) =         36
+     NUMBER OF MATRIX ELEMENTS . . . . . . . . . . .(NWK) =        666
+     MAXIMUM HALF BANDWIDTH  . . . . . . . . . . . .(MK ) =         36
+     MEAN HALF BANDWIDTH . . . . . . . . . . . . . .(MM ) =         19
+
+
+ LOAD CASE   1
+
+ D I S P L A C E M E N T S
+
+       NODE           X-DISPLACEMENT    Y-DISPLACEMENT    Z-DISPLACEMENT
+          1                   0.000000e+00           0.000000e+00           0.000000e+00
+          2                   3.000000e-05           0.000000e+00           0.000000e+00
+          3                   3.000000e-05          -9.000000e-06           0.000000e+00
+          4                   0.000000e+00          -9.000000e-06           0.000000e+00
+          5                   0.000000e+00           0.000000e+00          -9.000000e-06
+          6                   3.000000e-05           0.000000e+00          -9.000000e-06
+          7                   3.000000e-05          -9.000000e-06          -9.000000e-06
+          8                   0.000000e+00          -9.000000e-06          -9.000000e-06
+          9                   1.500000e-05           0.000000e+00           0.000000e+00
+         10                   3.000000e-05          -4.500000e-06           0.000000e+00
+         11                   1.500000e-05          -9.000000e-06           0.000000e+00
+         12                   0.000000e+00          -4.500000e-06           0.000000e+00
+         13                   1.500000e-05           0.000000e+00          -9.000000e-06
+         14                   3.000000e-05          -4.500000e-06          -9.000000e-06
+         15                   1.500000e-05          -9.000000e-06          -9.000000e-06
+         16                   0.000000e+00          -4.500000e-06          -9.000000e-06
+         17                   0.000000e+00           0.000000e+00          -4.500000e-06
+         18                   3.000000e-05           0.000000e+00          -4.500000e-06
+         19                   3.000000e-05          -9.000000e-06          -4.500000e-06
+         20                   0.000000e+00          -9.000000e-06          -4.500000e-06
+
+
+  S T R A I N AND S T R E S S  C A L C U L A T I O N S  F O R  E L E M E N T  G R O U P    1
+
+  ELEMENT        GAUSS POINT                      			     STRAIN    			     STRESS
+  NUMBER            NUMBER           EPSILON_X         EPSILON_Y         EPSILON_Z         GAMMA_XY        GAMMA_YZ         GAMMA_ZX                SIGMA_X            SIGMA_Y            SIGMA_Z            TAU_XY             TAU_YZ             TAU_ZX
+       1                        1                 1.500000e-05    -4.500000e-06    -4.500000e-06    -6.859848e-21     5.467480e-22    -2.029631e-22         3.000000e+00    -6.661338e-16    -1.332268e-15    -5.276806e-16     4.205754e-17    -1.561255e-17
+       1                        2                 1.500000e-05    -4.500000e-06    -4.500000e-06    -8.198235e-21     1.939323e-20     3.840900e-20         3.000000e+00     0.000000e+00    -6.661338e-16    -6.306335e-16     1.491787e-15     2.954538e-15
+       1                        3                 1.500000e-05    -4.500000e-06    -4.500000e-06     1.823139e-20    -8.520814e-21    -3.799205e-21         3.000000e+00    -5.551115e-16    -3.108624e-15     1.402415e-15    -6.554472e-16    -2.922466e-16
+       1                        4                 1.500000e-05    -4.500000e-06    -4.500000e-06    -7.374863e-21    -1.714331e-20     1.452613e-20         3.000000e+00     1.665335e-15    -1.776357e-15    -5.672972e-16    -1.318716e-15     1.117395e-15
+       1                        5                 1.500000e-05    -4.500000e-06    -4.500000e-06    -2.631181e-20    -1.630901e-21    -3.512817e-20         3.000000e+00    -1.776357e-15    -1.110223e-15    -2.023985e-15    -1.254539e-16    -2.702167e-15
+       1                        6                 1.500000e-05    -4.500000e-06    -4.500000e-06    -3.126911e-20     1.006874e-20     2.787941e-20         3.000000e+00     1.110223e-16    -2.664535e-15    -2.405316e-15     7.745186e-16     2.144570e-15
+       1                        7                 1.500000e-05    -4.500000e-06    -4.500000e-06     2.161952e-20     9.525713e-21    -2.010459e-20         3.000000e+00    -9.992007e-16     4.440892e-16     1.663040e-15     7.327471e-16    -1.546507e-15
+       1                        8                 1.500000e-05    -4.500000e-06    -4.500000e-06     9.432984e-22     2.441663e-20     2.800257e-20         3.000000e+00     1.332268e-15     1.332268e-15     7.256142e-17     1.878202e-15     2.154044e-15
+
+
+ S O L U T I O N   T I M E   L O G   I N   S E C
+
+     TIME FOR INPUT PHASE  . . . . . . . . . . . . . . =         0.03
+     TIME FOR CALCULATION OF STIFFNESS MATRIX  . . . . =         0.04
+     TIME FOR FACTORIZATION OF STIFFNESS MATRIX  . . . =         0.00
+     TIME FOR LOAD CASE SOLUTIONS  . . . . . . . . . . =         0.01
+
+      T O T A L   S O L U T I O N   T I M E  . . . . . =         0.08

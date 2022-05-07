@@ -1,4 +1,4 @@
-% % C3D8单元Jacobi矩阵
+% % C3D8单元形函数N，Jacobi矩阵，应变矩阵B=L*N
 function [N,Jacobi,B] = C3D8NJB(node_coor, ksi, eta, zeta)
 
 ksi_i = [-1; 1; 1; -1; -1; 1; 1; -1];
