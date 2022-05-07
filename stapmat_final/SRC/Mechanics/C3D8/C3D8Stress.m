@@ -23,7 +23,7 @@ fprintf(IOUT, ['\n\n  S T R A I N AND S T R E S S  C A L C U L A T I O N S  F O 
 for N = 1:NUME
     MTYPE = MATP(N);
 
-    [ng,ksi,eta,zeta,weight] = GetC3D8GaussianIntInfo( NGaussian );
+    [ng,ksi,eta,zeta,weight] = Get3DGaussianIntInfo( NGaussian );
 
     E0 = E(MTYPE);
     nu0 = nu(MTYPE);

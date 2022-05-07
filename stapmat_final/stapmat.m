@@ -50,6 +50,7 @@ addpath .\SRC\Mechanics
 addpath .\SRC\Mechanics\Truss
 addpath .\SRC\Mechanics\Plane
 addpath .\SRC\Mechanics\C3D8
+addpath .\SRC\Mechanics\C3D20
 addpath .\SRC\Solver
 end
 

@@ -1,11 +1,11 @@
 % % - Called by
-% %          C3D8Stiff.m
+% %          C3D20Stiff.m
 % % 
 % % - Call procedures:
 % %        ReadMaterial()
 % %        ReadElements()
 
-function ReadC3D8()
+function ReadC3D20()
 
 % Read Material information
 ReadMaterial()
@@ -17,7 +17,7 @@ ReadElements()
 global cdata;
 cdata.TIM(2,:) = clock;
 
-end % end of ReadC3D8
+end % end of ReadC3D20
 
 
 % ----------------------- Functions -----------------------------------
@@ -60,6 +60,7 @@ end
 
 end % end of  ReadMaterial
 
+
 % Read elements information
 function ReadElements()
 
@@ -71,12 +72,22 @@ IIN = cdata.IIN;
 IOUT = cdata.IOUT;
 
 fprintf(IOUT, '\n\n E L E M E N T   I N F O R M A T I O N\n');
-fprintf(IOUT, '\n      ELEMENT \t NODE \t NODE \t NODE \t NODE \t NODE \t NODE \t NODE \t NODE \t   MATERIAL\n');
-fprintf(IOUT, '      NUMBER-N \t   I1 \t    I2 \t    I3 \t    I4 \t    I5 \t    I6 \t    I7 \t    I8 \t SET NUMBER\n');
+% fprintf(IOUT, '\n      ELEMENT \t NODE \t NODE \t NODE \t NODE \t NODE \t NODE \t NODE \t NODE \t   MATERIAL\n');
+% fprintf(IOUT, '      NUMBER-N \t   I1 \t    I2 \t    I3 \t    I4 \t    I5 \t    I6 \t    I7 \t    I8 \t SET NUMBER\n');
+fprintf(IOUT, '\n      ELEMENT \t ');
+for i_out = 1:20
+    fprintf(IOUT, 'NODE \t ');
+end
+fprintf(IOUT, '   MATERIAL\n');
+fprintf(IOUT, '      NUMBER-N \t   ');
+for i_out = 1:20
+    fprintf(IOUT, 'I%d \t    ',i_out);
+end
+fprintf(IOUT, ' SET NUMBER\n');
 
 % Get Position data
 NUME = cdata.NPAR(2);
-sdata.XYZ = zeros(sdata.NNODE * 3, NUME, 'double'); % 每一列为一个单元，12行为4个节点上12个xyz坐标
+sdata.XYZ = zeros(sdata.NNODE * 3, NUME, 'double'); % 每一列为一个单元，每一列中的数表示该单元上的节点的xyz坐标
 sdata.MATP = zeros(NUME, 1, 'int64');                 % the type of material
 sdata.LM = zeros(sdata.NNODE * sdata.NDOF, NUME, 'double');                  % connectivity matrix
 sdata.MHT = zeros(sdata.NEQ, 1, 'int64');
@@ -92,30 +103,32 @@ for N = 1:NUME
 
     MTYPE = round(tmp(sdata.NNODE+2));
 
-%     MTYPE = round(tmp(10));
-    
-%   Save element information
+    %   Save element information
     for i1 = 1:sdata.NNODE
         XYZ( i1*3 - 2, N ) = X( II( i1 ) );
         XYZ( i1*3 - 1, N ) = Y( II( i1 ) );
         XYZ( i1*3, N ) = Z( II( i1 ) );
     end
-
-    MATP(N) = MTYPE;
     
-    fprintf(IOUT, '   %10d            %10d      %10d      %10d      %10d      %10d      %10d      %10d      %10d           %5d\n', ...
-        N, II(1), II(2), II(3), II(4), II(5), II(6), II(7), II(8), MTYPE);
+    MATP(N) = MTYPE;
 
-%   Compute connectivity matrix
+    fprintf(IOUT, '   %10d            ',N);
+    for i_out = 1:20
+        fprintf(IOUT, '%10d      ',II(i_out));
+    end
+    fprintf(IOUT, '     %5d\n',MTYPE);
+    
+    % Compute connectivity matrix
     for i2 = 1:sdata.NNODE
         LM( i2*3-2, N ) = ID( 1, II(i2) );
         LM( i2*3-1, N ) = ID( 2, II(i2) );
         LM( i2*3  , N ) = ID( 3, II(i2) );
     end
 
-%   Updata column heights and bandwidth
+    %   Updata column heights and bandwidth
     ColHt(LM(:, N))
 end
+
 sdata.XYZ = XYZ; sdata.MATP = MATP; sdata.LM = LM;
 
 % Clear the memory of X, Y, Z

@@ -58,7 +58,7 @@ E = sdata.E; nu = sdata.nu; NGaussian = sdata.NGaussian; LM = sdata.LM;
 for N = 1:NUME
     MTYPE = MATP(N);
 
-    [ng,ksi,eta,zeta,weight] = GetC3D8GaussianIntInfo( NGaussian );
+    [ng,ksi,eta,zeta,weight] = Get3DGaussianIntInfo( NGaussian );
 
     E0 = E(MTYPE);
     nu0 = nu(MTYPE);
