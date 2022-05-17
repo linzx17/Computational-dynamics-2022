@@ -5,13 +5,13 @@
 % %        ReadC3D8()
 % % 
 
-function C3D8Stiff()
+function C3D8Stiff(NUMEG_ID)
 
 % Init variables of the element
 InitC3D8();
 
 % Read Material and Elements
-ReadC3D8();
+ReadC3D8(NUMEG_ID);
 
 fprintf('Solution phase ...\n\n');
 

@@ -22,6 +22,7 @@ classdef ControlData
                        %   NPAR(3) - Number of different sets of material
                        %             and cross-sectional constants
         NUMEG;         % Total number of element groups, > 0
+        NUMEM;        % Total number of elements, >0
         NLCASE;        % Number of load case (>0)
         LL;            % Load case number
         NLOAD;         % The number of concentrated loads applied in this load case
@@ -32,6 +33,8 @@ classdef ControlData
         HED;           % Master heading information for usr in labeling the output
 
         IIN;           % file pointer used for input
-        IOUT;          % file pointer used for output
+        IOUT;        % file pointer used for output
+        IDAT_ANIM;        % file pointer used for output for Tecplot
+        IDAT_CURV;        % file pointer used for output for Tecplot
     end
 end

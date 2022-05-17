@@ -21,8 +21,14 @@ function GetStress(NUM) % NUM:载荷工况数
 
 % Different type of element
 global cdata;
+global sdata;
 NUMEG = cdata.NUMEG;
 IOUT = cdata.IOUT;
+IDAT_CURV = cdata.IDAT_CURV;
+
+sdata.NODE_FLAG = zeros(cdata.NUMNP,cdata.NLCASE,'int8');
+sdata.STRAIN = zeros(cdata.NUMNP,6,cdata.NLCASE,'double');
+sdata.STRESS = zeros(cdata.NUMNP,6,cdata.NLCASE,'double');
 
 for N = 1:NUMEG % 单元组数
     NPAR1 = cdata.NPAR(1);
@@ -39,6 +45,27 @@ for N = 1:NUMEG % 单元组数
     end 
 end
 
+%应力磨平
+for j = 1:cdata.NLCASE
+    for i = 1:cdata.NUMNP
+        if sdata.NODE_FLAG(i) ~= 1
+            sdata.STRAIN(i,1:6,j) = sdata.STRAIN(i,1:6,j)./NODE_FLAG(i);
+            sdata.STRESS(i,1:6,j) = sdata.STRESS(i,1:6,j)./NODE_FLAG(i);
+        end
+        fprintf(IDAT_CURV,'%15d%',i);
+        for ii = 1:3
+            fprintf(IDAT_CURV,'%15.6E%',sdata.DISP(i,ii,j));
+        end
+        for ii = 1:6
+            fprintf(IDAT_CURV,'%15.6E%',sdata.STRAIN(i,ii,j));
+        end
+        for ii = 1:6
+            fprintf(IDAT_CURV,'%15.6E%',sdata.STRESS(i,ii,j));
+        end
+        fprintf(IDAT_CURV,'\n');
+    end
+    fprintf(IDAT_CURV,'\n');
+end
 
 
 end

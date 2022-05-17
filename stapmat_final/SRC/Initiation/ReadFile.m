@@ -41,8 +41,9 @@ cdata.HED = fgetl(IIN); % 读取文件下一行并删除换行符
 tmp = str2num(fgetl(IIN));
 cdata.NUMNP = int64(tmp(1)); % 节点总数
 cdata.NUMEG = int64(tmp(2)); % 单元组总数
-cdata.NLCASE = int64(tmp(3)); % 载荷工况数
-cdata.MODEX = int64(tmp(4)); % 求解模式
+cdata.NUMEM = int64(tmp(3)); % 单元总数
+cdata.NLCASE = int64(tmp(4)); % 载荷工况数
+cdata.MODEX = int64(tmp(5)); % 求解模式
 
 if (cdata.NUMNP == 0) return; end
 

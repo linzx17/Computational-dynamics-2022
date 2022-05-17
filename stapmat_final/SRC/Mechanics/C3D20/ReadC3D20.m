@@ -5,13 +5,13 @@
 % %        ReadMaterial()
 % %        ReadElements()
 
-function ReadC3D20()
+function ReadC3D20(NUMEG_ID)
 
 % Read Material information
 ReadMaterial()
 
 % Read Element information
-ReadElements()
+ReadElements(NUMEG_ID)
 
 % the second time stamp
 global cdata;
@@ -62,7 +62,7 @@ end % end of  ReadMaterial
 
 
 % Read elements information
-function ReadElements()
+function ReadElements(NUMEG_ID)
 
 global cdata;
 global sdata;
@@ -72,8 +72,6 @@ IIN = cdata.IIN;
 IOUT = cdata.IOUT;
 
 fprintf(IOUT, '\n\n E L E M E N T   I N F O R M A T I O N\n');
-% fprintf(IOUT, '\n      ELEMENT \t NODE \t NODE \t NODE \t NODE \t NODE \t NODE \t NODE \t NODE \t   MATERIAL\n');
-% fprintf(IOUT, '      NUMBER-N \t   I1 \t    I2 \t    I3 \t    I4 \t    I5 \t    I6 \t    I7 \t    I8 \t SET NUMBER\n');
 fprintf(IOUT, '\n      ELEMENT \t ');
 for i_out = 1:20
     fprintf(IOUT, 'NODE \t ');
@@ -99,6 +97,16 @@ for N = 1:NUME
     II = zeros(sdata.NNODE,1); % 该单元上的节点编号
     for ii = 1:sdata.NNODE
         II(ii) = round(tmp(ii+1));
+    end
+
+    if (NUMEG_ID ~= 1)
+        for i3 = 1:sdata.NNODE
+            sdata.ELEII(sdata.NUMEGEM(NUMEG_ID-1)+N,i3) = II(i3);
+        end
+    else
+        for i3 = 1:sdata.NNODE
+            sdata.ELEII(N,i3) = II(i3);
+        end
     end
 
     MTYPE = round(tmp(sdata.NNODE+2));
@@ -131,9 +139,5 @@ end
 
 sdata.XYZ = XYZ; sdata.MATP = MATP; sdata.LM = LM;
 
-% Clear the memory of X, Y, Z
-sdata.X = double(0);
-sdata.Y = double(0);
-sdata.Z = double(0);
 
 end % end of ReadElements

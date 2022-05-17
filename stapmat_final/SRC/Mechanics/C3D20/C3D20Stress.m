@@ -49,14 +49,24 @@ for N = 1:NUME
             ae(i) = U(LM(i,N));
         end
     end
+    %单元中高斯积分点应力应变数组 8个
     strain_e = zeros(6,ng^3);
     stress_e = zeros(6,ng^3);
+    %单元中节点应力应变数组 20个
+    strain_n = zeros(6,20);
+    stress_n = zeros(6,20);
+
     gpnum = 0; % 高斯积分点计数
+    
+    smooth_Ni = zeros(ng^3,20,'double');
+    smooth_num = int8(0);
 
     for i = 1:ng
         for j = 1:ng
             for k = 1:ng
                 [~,~,B] = C3D20NJB(node_coor,ksi(i),eta(j),zeta(k));
+                smooth_num = smooth_num+1;
+                smooth_Ni(smooth_num,:) = C3D20Ni(ksi(i),eta(j),zeta(k));
                 gpnum = gpnum + 1;
                 strain_e(:,gpnum) = B*ae;
                 stress_e(:,gpnum) = D*strain_e(:,gpnum);
@@ -66,6 +76,22 @@ for N = 1:NUME
                 stress_e(1,gpnum), stress_e(2,gpnum), stress_e(3,gpnum), stress_e(4,gpnum), stress_e(5,gpnum), stress_e(6,gpnum));
             end
         end
+    end
+
+    strain_n = (smooth_Ni \ strain_e')';
+    stress_n = (smooth_Ni \ stress_e')';
+
+    if (N ~=1)
+        element_id = sdata.NUMEGEM(NG-1)+N;
+    else
+        element_id = N;
+    end
+
+    for i = 1:sdata.NNODE
+          node_id = sdata.ELEII(element_id,i);
+          sdata.NODE_FLAG(node_id,NUM) = sdata.NODE_FLAG(node_id,NUM)+1;
+          sdata.STRAIN(node_id,:,NUM) = sdata.STRAIN(node_id,:,NUM)+strain_n(:,i)';
+          sdata.STRESS(node_id,:,NUM) = sdata.STRAIN(node_id,:,NUM)+stress_n(:,i)';
     end
 
 end

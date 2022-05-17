@@ -5,13 +5,13 @@
 % %        ReadMaterial()
 % %        ReadElements()
 
-function ReadC3D8()
+function ReadC3D8(NUMEG_ID)
 
 % Read Material information
 ReadMaterial()
 
 % Read Element information
-ReadElements()
+ReadElements(NUMEG_ID)
 
 % the second time stamp
 global cdata;
@@ -61,7 +61,7 @@ end
 end % end of  ReadMaterial
 
 % Read elements information
-function ReadElements()
+function ReadElements(NUMEG_ID)
 
 global cdata;
 global sdata;
@@ -83,11 +83,21 @@ sdata.MHT = zeros(sdata.NEQ, 1, 'int64');
 X = sdata.X; Y = sdata.Y; Z = sdata.Z; ID = sdata.ID;
 XYZ = sdata.XYZ; MATP = sdata.MATP; LM = sdata.LM;
 
-for N = 1:NUME
+for N = 1:NUME %NUME单元组中单元个数
     tmp = str2num(fgetl(IIN));
     II = zeros(sdata.NNODE,1); % 该单元上的节点编号
     for ii = 1:sdata.NNODE
         II(ii) = round(tmp(ii+1));
+    end
+    
+    if (NUMEG_ID ~= 1)
+        for i3 = 1:sdata.NNODE
+            sdata.ELEII(sdata.NUMEGEM(NUMEG_ID-1)+N,i3) = II(i3);
+        end
+    else
+        for i3 = 1:sdata.NNODE
+            sdata.ELEII(N,i3) = II(i3);
+        end
     end
 
     MTYPE = round(tmp(sdata.NNODE+2));
@@ -115,12 +125,8 @@ for N = 1:NUME
 
 %   Updata column heights and bandwidth
     ColHt(LM(:, N))
+    
 end
 sdata.XYZ = XYZ; sdata.MATP = MATP; sdata.LM = LM;
-
-% Clear the memory of X, Y, Z
-sdata.X = double(0);
-sdata.Y = double(0);
-sdata.Z = double(0);
 
 end % end of ReadElements

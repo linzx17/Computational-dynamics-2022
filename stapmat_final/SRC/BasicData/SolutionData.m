@@ -34,6 +34,10 @@ classdef SolutionData
         X;        % double, X(NUMNP), X coordinates
         Y;        % double, Y(NUMNP), Y coordinates
         Z;        % double, Z(NUMNP), Z coordinates
+        ELEII;   %int, ELEII(NUMEM,NNODE), element information
+        NUMEGEM;   % int, NUMEGEM(NUMEG),Numid of elements in one element group;
+        NODE_FLAG; % int, NODE_FLAG(NUMNP,NLCASE),In all element, the times of the node appears
+
         R;        % double, R(NEQ), Load vector
         NOD;      % int, NOD(NLOAD), Node number to which this load is applied (1~NUMNP)
         IDIRN;    % int, IDIRN(NLOAD), Degree of freedom number for this load component
@@ -45,7 +49,7 @@ classdef SolutionData
         
         
         % Element data
-        NUME;     % int, number of elements
+        NUME;     % int, number of elements in this element group
         NNODE;    % int, number of nodes in an element
         NINIP;    % int, number of integration points in an element
         NDOF;     % int, the DOF of displacement
@@ -74,8 +78,9 @@ classdef SolutionData
         
         % Result data
         DIS;      % double, DIS(NEQ, NLCASE), Displacement of nodes
-        STRAIN;   % double, STRAIN(NEQ, NLCASE), Strain
-        STRESS;   % double, STRESS(NEQ, NLCASE), Stress
+        DISP;    % double, DIS(NUMNP, NLCASE), Displacement of nodes
+        STRAIN;   % double, STRAIN(NUMNP,6, NLCASE), Strain
+        STRESS;   % double, STRESS(NUMNP,6, NLCASE), Stress
         
     end
 end

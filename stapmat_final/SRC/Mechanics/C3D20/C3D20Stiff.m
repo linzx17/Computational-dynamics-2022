@@ -5,13 +5,13 @@
 % %        ReadC3D20()
 % % 
 
-function C3D20Stiff()
+function C3D20Stiff(NUMEG_ID)
 
 % Init variables of the element
 InitC3D20();
 
 % Read Material and Elements
-ReadC3D8();
+ReadC3D20(NUMEG_ID);
 
 fprintf('Solution phase ...\n\n');
 

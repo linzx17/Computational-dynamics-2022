@@ -9,7 +9,7 @@
       SOLUTION MODE  . . . . . . . . . . . . . . (MODEX)  =          2 
          EQ.0, DATA CHECK 
          EQ.1, EXECUTION - 一维变带宽存储刚度矩阵
-         EQ.2, EXECUTION - Matlab稀疏矩阵左除
+         EQ.2, EXECUTION - Matlab稀疏矩阵左除R
 
 
  N O D A L   P O I N T   D A T A 
@@ -100,9 +100,9 @@
 
  E L E M E N T   I N F O R M A T I O N
 
-      ELEMENT 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	   MATERIAL
-      NUMBER-N 	   I1 	    I2 	    I3 	    I4 	    I5 	    I6 	    I7 	    I8 	 SET NUMBER
-            1                     1               2               3               4               5               6               7               8               1
+      ELEMENT 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	 NODE 	    MATERIAL
+      NUMBER-N 	   I1 	    I2 	    I3 	    I4 	    I5 	    I6 	    I7 	    I8 	    I9 	    I10 	    I11 	    I12 	    I13 	    I14 	    I15 	    I16 	    I17 	    I18 	    I19 	    I20 	     SET NUMBER
+            1                     1               2               3               4               5               6               7               8               9              10              11              12              13              14              15              16              17              18              19              20               1
 
 
   TOTAL SYSTEM DATA
@@ -117,7 +117,7 @@
 
  D I S P L A C E M E N T S
 
-       NODE           X-DISPLACEMENT    Y-DISPLACEMENT    Z-DISPLACEMENT
+       NODE           X-DISPLACEMENT    Y-DISPLACEMENT    Z-DISPLACEMENT   ET=BRICK C=CYAN 
           1                   0.000000e+00           0.000000e+00           0.000000e+00
           2                   3.000000e-05           0.000000e+00           0.000000e+00
           3                   3.000000e-05          -9.000000e-06           0.000000e+00
@@ -156,9 +156,9 @@
 
  S O L U T I O N   T I M E   L O G   I N   S E C
 
-     TIME FOR INPUT PHASE  . . . . . . . . . . . . . . =         0.03
-     TIME FOR CALCULATION OF STIFFNESS MATRIX  . . . . =         0.04
+     TIME FOR INPUT PHASE  . . . . . . . . . . . . . . =         0.02
+     TIME FOR CALCULATION OF STIFFNESS MATRIX  . . . . =         0.01
      TIME FOR FACTORIZATION OF STIFFNESS MATRIX  . . . =         0.00
-     TIME FOR LOAD CASE SOLUTIONS  . . . . . . . . . . =         0.01
+     TIME FOR LOAD CASE SOLUTIONS  . . . . . . . . . . =         0.02
 
-      T O T A L   S O L U T I O N   T I M E  . . . . . =         0.08
+      T O T A L   S O L U T I O N   T I M E  . . . . . =         0.05

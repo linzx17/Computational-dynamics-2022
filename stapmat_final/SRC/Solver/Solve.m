@@ -56,7 +56,12 @@ end
     
 %   Print displacements
     WriteDis(L);
-    
+
+    % Clear the memory of X, Y, Z
+    sdata.X = double(0);
+    sdata.Y = double(0);
+    sdata.Z = double(0);
+
 %   Calculation of stresses
     GetStress(L);
     
@@ -104,12 +109,14 @@ function WriteDis(NUM) % 第NUM个载荷工况
 global cdata;
 global sdata;
 IOUT = cdata.IOUT;
+IDAT_ANIM = cdata.IDAT_ANIM;
 NUMNP = cdata.NUMNP;
 DIS = sdata.DIS(:, NUM); ID = sdata.ID;
+XYZ = sdata.XYZ;X = sdata.X;Y = sdata.Y;Z = sdata.Z;
 
 fprintf(IOUT, '\n\n LOAD CASE %3d', NUM);
 fprintf(IOUT, ['\n\n D I S P L A C E M E N T S\n' ...
-    '\n       NODE           X-DISPLACEMENT    Y-DISPLACEMENT    Z-DISPLACEMENT\n']);
+    '\n       NODE           X-DISPLACEMENT    Y-DISPLACEMENT    Z-DISPLACEMENT   ET=BRICK C=CYAN \n']);
 
 D = zeros(3, 1, 'double');
 displacement_node = zeros(NUMNP,3);
@@ -126,6 +133,8 @@ for II = 1:NUMNP
     end
     displacement_node(II,:) = D';
     fprintf(IOUT, ' %10d             %18.6e     %18.6e     %18.6e\n', II, D(1), D(2), D(3));
+    fprintf(IDAT_ANIM,'%12.4E %11.4E %11.4E\n',X(II)+D(1), Y(II)+D(2), Z(II)+D(3));
+    sdata.DISP(II,[1 2 3],NUM) = [D(1),D(2),D(3)];
 end
 
 end

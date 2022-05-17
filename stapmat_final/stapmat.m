@@ -20,11 +20,20 @@ cdata = ControlData;
 sdata = SolutionData;
 
 % Read InPut file
-fname = 'C3D20_ne1.in';              % Specify the file name
-ReadFile(fname); % 读取标题行、控制行、节点数据、载荷数据
+fileID = 'C3D20_ne1';
+fname = [fileID,'.in'];              % Specify the file name
+ReadFile(fname); % 读取标题行、控制行、节点数据、载荷数
 
 % Write basic data of program 
-WriteParasOut(); % 创建输出文件，
+
+cdata.IOUT = fopen(['.\Data\',fileID,'.OUT'], 'w');
+WriteParasOut(); % 创建输出文件
+
+cdata.IDAT_ANIM = fopen(['.\Data\anim_',fileID,'.DAT'], 'w');
+WriteParasDatANIM();%创建Tecplot可读文件
+
+cdata.IDAT_CURV = fopen(['.\Data\curv_',fileID,'.DAT'], 'w');
+WriteParasDatCURV();%创建Tecplot可读文件
 
 % Form the stiffness matrix
 GetStiff();
@@ -56,6 +65,7 @@ end
 
 function Finalize()
 global cdata;
+global sdata;
 TIM = cdata.TIM;
 time = zeros(5, 1, 'double');
 time(1) = etime(TIM(2,:), TIM(1,:));
@@ -82,6 +92,15 @@ fprintf(['\n' ...
     '      T O T A L   S O L U T I O N   T I M E  . . . . . = %12.2f\n'], ...
     time(1), time(2), time(3), time(4),time(5));
 
+for N = 1:cdata.NUMEM
+    for NN = 1:sdata.NNODE
+        fprintf(cdata.IDAT_ANIM,'%7d',sdata.ELEII(cdata.NUMEM,NN));
+    end
+    fprintf(cdata.IDAT_ANIM,'\n');
+end
+
 fclose(cdata.IIN);
 fclose(cdata.IOUT);
+fclose(cdata.IDAT_ANIM);
+fclose(cdata.IDAT_CURV);
 end
