@@ -57,10 +57,10 @@ for j = 1:cdata.NLCASE
             fprintf(IDAT_CURV,'%15.6E%',sdata.DISP(i,ii,j));
         end
         for ii = 1:6
-            fprintf(IDAT_CURV,'%15.6E%',sdata.STRAIN(i,ii,j));
+            fprintf(IDAT_CURV,'%15.6E%',sdata.STRAIN(i,ii,j));%应变
         end
         for ii = 1:6
-            fprintf(IDAT_CURV,'%15.6E%',sdata.STRESS(i,ii,j));
+            fprintf(IDAT_CURV,'%15.6E%',sdata.STRESS(i,ii,j));%应力
         end
         fprintf(IDAT_CURV,'\n');
     end

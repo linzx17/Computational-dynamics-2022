@@ -22,7 +22,7 @@ global cdata;
 % Open file
 IDAT_CURV = cdata.IDAT_CURV;
 fprintf(IDAT_CURV,'TITLE = "Example : %s"\n',cdata.HED);
-fprintf(IDAT_CURV,'VARIABLES= "NODE_ID" "U1" "U2" "U3" "S11" "S22" "S33" "S12" "S13" "S23"\n');
+fprintf(IDAT_CURV,'VARIABLES= "NODE_ID" "U1" "U2" "U3" "E11" "E22" "E33" "E12" "E13" "E23" "S11" "S22" "S33" "S12" "S13" "S23"\n');
 
 end
 

@@ -20,7 +20,8 @@ cdata = ControlData;
 sdata = SolutionData;
 
 % Read InPut file
-fileID = 'C3D20_ne1';
+% fileID = 'Job_C3D8_ne1_wwt';
+fileID = 'Job_C3D20_ne1_wwt';
 fname = [fileID,'.in'];              % Specify the file name
 ReadFile(fname); % 读取标题行、控制行、节点数据、载荷数
 
