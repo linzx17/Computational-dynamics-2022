@@ -116,7 +116,7 @@ XYZ = sdata.XYZ;X = sdata.X;Y = sdata.Y;Z = sdata.Z;
 
 fprintf(IOUT, '\n\n LOAD CASE %3d', NUM);
 fprintf(IOUT, ['\n\n D I S P L A C E M E N T S\n' ...
-    '\n       NODE           X-DISPLACEMENT    Y-DISPLACEMENT    Z-DISPLACEMENT   ET=BRICK C=CYAN \n']);
+    '\n       NODE                  X-DISPLACEMENT         Y-DISPLACEMENT         Z-DISPLACEMENT \n']);
 
 D = zeros(3, 1, 'double');
 displacement_node = zeros(NUMNP,3);

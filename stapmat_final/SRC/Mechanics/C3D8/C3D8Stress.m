@@ -55,8 +55,10 @@ for N = 1:NUME
     strain_e = zeros(6,ng^3);
     stress_e = zeros(6,ng^3);
     %单元中节点应力应变矩阵
-    strain_n = zeros(6,ng^3);
-    stress_n = zeros(6,ng^3);
+    strain_n_1 = zeros(6,8);
+    stress_n_1 = zeros(6,8);
+    strain_n = zeros(6,8);
+    stress_n = zeros(6,8);
 
     gpnum = 0; % 高斯积分点计数
 
@@ -80,8 +82,34 @@ for N = 1:NUME
         end
     end
     
-    strain_n = (smooth_Ni \ strain_e')';
-    stress_n = (smooth_Ni \ stress_e')';
+    %strain_e(6,8) 其中6表示有6中应变，8表示有8个高斯积分点
+    %高斯积分点的顺序为
+    % I     (ksi(1),eta(1),zeta(1)) ---
+    % II    (ksi(1),eta(1),zeta(2)) --+
+    % III   (ksi(1),eta(2),zeta(1)) -+-
+    % IV   (ksi(1),eta(2),zeta(2)) -++
+    % V    (ksi(2),eta(1),zeta(1)) +--
+    % VI   (ksi(2),eta(1),zeta(2)) +-+
+    % VII  (ksi(2),eta(2),zeta(1)) ++-
+    % VIII (ksi(2),eta(2),zeta(2)) +++
+    % ksi = double([-1/sqrt(3),1/sqrt(3)]);
+    % eta = double([-1/sqrt(3),1/sqrt(3)]);
+    % zeta = double([-1/sqrt(3),1/sqrt(3)]);
+
+    strain_n_1 = (smooth_Ni \ strain_e')';
+    stress_n_1 = (smooth_Ni \ stress_e')';
+
+    %strain_n_1(6,8) 其中6表示有6中应变，8表示有8个节点
+    %下面(ksi_i(1),eta_i(1),zeta_i(1))...(ksi_i(8),eta_i(8),zeta_i(8)))表示的即为strain_n_1(1,:)中依次求出的节点顺序
+    % ksi_i = [-1; 1; 1; -1; -1; 1; 1; -1];
+    % eta_i = [-1; -1; 1; 1; -1; -1; 1; 1];
+    % zeta_i = [-1; -1; -1; -1; 1; 1; 1; 1];
+
+    strain_n(:,[8 4 3 7 5 1 2 6]) = strain_n_1(:,:);
+    stress_n(:,[8 4 3 7 5 1 2 6]) = stress_n_1(:,:);
+
+    %strain_n(6,8) 其中6表示有6中应变，8表示有8个节点
+    %下面ELEII的顺序依次表示节点顺序
 
     if (N ~=1)
         element_id = sdata.NUMEGEM(NG-1)+N;
@@ -89,11 +117,10 @@ for N = 1:NUME
         element_id = N;
     end
 
-    for i = 1:sdata.NNODE
-          node_id = sdata.ELEII(element_id,i);
-          sdata.NODE_FLAG(node_id,NUM) = sdata.NODE_FLAG(node_id,NUM)+1;
-          sdata.STRAIN(node_id,:,NUM) = sdata.STRAIN(node_id,:,NUM)+strain_n(:,i)';
-          sdata.STRESS(node_id,:,NUM) = sdata.STRAIN(node_id,:,NUM)+stress_n(:,i)';
-    end
-        
+    node_id = sdata.ELEII(element_id,:);
+    sdata.NODE_FLAG(node_id,NUM) = sdata.NODE_FLAG(node_id,NUM)+ones(8,1,'int8');
+
+    sdata.STRAIN( sdata.ELEII(element_id,:) , : , NUM ) = sdata.STRAIN(sdata.ELEII(element_id,:)  , : , NUM)+strain_n(:,:)';
+    sdata.STRESS( sdata.ELEII(element_id,:) , : , NUM ) = sdata.STRESS(sdata.ELEII(element_id,:)  , : , NUM)+stress_n(:,:)';
+
 end

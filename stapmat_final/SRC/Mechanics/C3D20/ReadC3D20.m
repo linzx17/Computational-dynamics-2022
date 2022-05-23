@@ -38,8 +38,8 @@ fprintf(IOUT, '\n NUMBER OF DIFFERENT SETS OF MATERIAL\n');
 fprintf(IOUT, ' AND CROSS-SECTIONAL  CONSTANTS  . . . .( NPAR(3) ) . . = %10d\n', ...
     cdata.NPAR(3));
 fprintf(IOUT, '     SET          YOUNG''S       POSSION RATIO         DENSITY\n');
-fprintf(IOUT, ' NUMBER     MODULUS              \n');
-fprintf(IOUT, '                           E                       nu              rho\n');
+fprintf(IOUT, '   NUMBER         MODULUS\n');
+fprintf(IOUT, '                     E                  nu              rho\n');
 
 % Read material datas
 sdata.NUME = cdata.NPAR(2);% 该单元组内的单元数
@@ -79,7 +79,7 @@ end
 fprintf(IOUT, '   MATERIAL\n');
 fprintf(IOUT, '      NUMBER-N \t   ');
 for i_out = 1:20
-    fprintf(IOUT, 'I%d \t    ',i_out);
+    fprintf(IOUT, 'I%d 	   ',i_out);
 end
 fprintf(IOUT, ' SET NUMBER\n');
 
@@ -120,9 +120,9 @@ for N = 1:NUME
     
     MATP(N) = MTYPE;
 
-    fprintf(IOUT, '   %10d            ',N);
+    fprintf(IOUT, '     %8d',N);
     for i_out = 1:20
-        fprintf(IOUT, '%10d      ',II(i_out));
+        fprintf(IOUT, '%8d',II(i_out));
     end
     fprintf(IOUT, '     %5d\n',MTYPE);
     

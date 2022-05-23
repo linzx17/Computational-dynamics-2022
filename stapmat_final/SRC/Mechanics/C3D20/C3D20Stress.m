@@ -17,8 +17,8 @@ U = sdata.DIS(:, NUM);
 fprintf(IOUT, ['\n\n  S T R A I N AND S T R E S S  C A L C U L A T I O N S  F O R  ' ...
     'E L E M E N T  G R O U P %4d\n\n' ... 
     '  ELEMENT        GAUSS POINT                      \t\t\t     STRAIN    \t\t\t     STRESS\n' ...
-    '  NUMBER            NUMBER           EPSILON_X         EPSILON_Y         EPSILON_Z         GAMMA_XY        GAMMA_YZ         GAMMA_ZX              ' ...
-    '  SIGMA_X            SIGMA_Y            SIGMA_Z            TAU_XY             TAU_YZ             TAU_ZX\n'], NG);
+    '  NUMBER            NUMBER           EPSILON_X         EPSILON_Y        EPSILON_Z         GAMMA_XY         GAMMA_YZ         ' ...
+    'GAMMA_ZX              SIGMA_X          SIGMA_Y          SIGMA_Z           TAU_XY           TAU_YZ           TAU_ZX\n'], NG);
 
 for N = 1:NUME
     MTYPE = MATP(N);
@@ -53,6 +53,8 @@ for N = 1:NUME
     strain_e = zeros(6,ng^3);
     stress_e = zeros(6,ng^3);
     %单元中节点应力应变数组 20个
+    strain_n_1 = zeros(6,20);
+    stress_n_1 = zeros(6,20);
     strain_n = zeros(6,20);
     stress_n = zeros(6,20);
 
@@ -70,7 +72,7 @@ for N = 1:NUME
                 gpnum = gpnum + 1;
                 strain_e(:,gpnum) = B*ae;
                 stress_e(:,gpnum) = D*strain_e(:,gpnum);
-                fprintf(IOUT,['       %d                        %d                %13.6e    %13.6e    %13.6e    %13.6e    %13.6e    %13.6e' ...
+                fprintf(IOUT,['     %3d            %3d           %13.6e    %13.6e    %13.6e    %13.6e    %13.6e    %13.6e' ...
                     '        %13.6e    %13.6e    %13.6e    %13.6e    %13.6e    %13.6e\n'], ...
                 N, gpnum, strain_e(1,gpnum), strain_e(2,gpnum), strain_e(3,gpnum), strain_e(4,gpnum), strain_e(5,gpnum), strain_e(6,gpnum), ...
                 stress_e(1,gpnum), stress_e(2,gpnum), stress_e(3,gpnum), stress_e(4,gpnum), stress_e(5,gpnum), stress_e(6,gpnum));
@@ -78,8 +80,34 @@ for N = 1:NUME
         end
     end
 
-    strain_n = (smooth_Ni \ strain_e')';
-    stress_n = (smooth_Ni \ stress_e')';
+    %strain_e(6,8) 其中6表示有6中应变，8表示有8个高斯积分点
+    %高斯积分点的顺序为
+    % I     (ksi(1),eta(1),zeta(1)) ---
+    % II    (ksi(1),eta(1),zeta(2)) --+
+    % III   (ksi(1),eta(2),zeta(1)) -+-
+    % IV   (ksi(1),eta(2),zeta(2)) -++
+    % V    (ksi(2),eta(1),zeta(1)) +--
+    % VI   (ksi(2),eta(1),zeta(2)) +-+
+    % VII  (ksi(2),eta(2),zeta(1)) ++-
+    % VIII (ksi(2),eta(2),zeta(2)) +++
+    % ksi = double([-1/sqrt(3),1/sqrt(3)]);
+    % eta = double([-1/sqrt(3),1/sqrt(3)]);
+    % zeta = double([-1/sqrt(3),1/sqrt(3)]);
+
+    strain_n_1 = (smooth_Ni \ strain_e')';
+    stress_n_1 = (smooth_Ni \ stress_e')';
+    
+    %strain_n_1(6,20) 其中6表示有6中应变，20表示有20个节点
+    %下面(ksi_i(1),eta_i(1),zeta_i(1))...(ksi_i(20),eta_i(20),zeta_i(20)))表示的即为strain_n_1(1,:)中依次求出的节点顺序
+    % ksi_i  = [-1, 1, 1, -1, -1, 1, 1, -1, 0, 1, 0, -1, 0, 1, 0, -1, -1, 1, 1, -1];
+    % eta_i  = [-1, -1, 1, 1, -1, -1, 1, 1, -1, 0, 1, 0, -1, 0, 1, 0, -1, -1, 1, 1];
+    % zeta_i = [-1, -1, -1, -1, 1, 1, 1, 1, -1, -1, -1, -1, 1, 1, 1, 1, 0, 0, 0, 0];
+
+    strain_n(:,[8 4 3 7 6 2 1 5 19 15 20 10 17 13 18 12 11 14 16 9]) = strain_n_1(:,:);
+    stress_n(:,[8 4 3 7 6 2 1 5 19 15 20 10 17 13 18 12 11 14 16 9]) = stress_n_1(:,:);
+
+    %strain_n(6,8) 其中6表示有6中应变，20表示有20个节点
+    %下面ELEII的顺序依次表示节点顺序
 
     if (N ~=1)
         element_id = sdata.NUMEGEM(NG-1)+N;
@@ -87,11 +115,10 @@ for N = 1:NUME
         element_id = N;
     end
 
-    for i = 1:sdata.NNODE
-          node_id = sdata.ELEII(element_id,i);
-          sdata.NODE_FLAG(node_id,NUM) = sdata.NODE_FLAG(node_id,NUM)+1;
-          sdata.STRAIN(node_id,:,NUM) = sdata.STRAIN(node_id,:,NUM)+strain_n(:,i)';
-          sdata.STRESS(node_id,:,NUM) = sdata.STRAIN(node_id,:,NUM)+stress_n(:,i)';
-    end
+    node_id = sdata.ELEII(element_id,:);
+    sdata.NODE_FLAG(node_id,NUM) = sdata.NODE_FLAG(node_id,NUM)+ones(20,1,'int8');
+
+    sdata.STRAIN( sdata.ELEII(element_id,:) , : , NUM ) = sdata.STRAIN(sdata.ELEII(element_id,:)  , : , NUM)+strain_n(:,:)';
+    sdata.STRESS( sdata.ELEII(element_id,:) , : , NUM ) = sdata.STRESS(sdata.ELEII(element_id,:)  , : , NUM)+stress_n(:,:)';
 
 end

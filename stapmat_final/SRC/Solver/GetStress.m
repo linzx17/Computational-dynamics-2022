@@ -49,8 +49,8 @@ end
 for j = 1:cdata.NLCASE
     for i = 1:cdata.NUMNP
         if sdata.NODE_FLAG(i) ~= 1
-            sdata.STRAIN(i,1:6,j) = sdata.STRAIN(i,1:6,j)./NODE_FLAG(i);
-            sdata.STRESS(i,1:6,j) = sdata.STRESS(i,1:6,j)./NODE_FLAG(i);
+            sdata.STRAIN(i,1:6,j) = sdata.STRAIN(i,1:6,j)./sdata.NODE_FLAG(i);
+            sdata.STRESS(i,1:6,j) = sdata.STRESS(i,1:6,j)./sdata.NODE_FLAG(i);
         end
         fprintf(IDAT_CURV,'%15d%',i);
         for ii = 1:3
