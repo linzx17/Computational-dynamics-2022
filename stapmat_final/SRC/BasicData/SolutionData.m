@@ -75,6 +75,9 @@ classdef SolutionData
         LM;       % int, LM(6, NUME), Connectivity matrix
         MAXA;     % int, MAXA(NEQ)
         STIFF;    % double ,STIFF(NWK), store the elements of stiffness matrix
+        MASS;     % double ,MASS(NWK), store the elements of mass matrix
+        FREQUENCY;% 固有频率
+        PHI;      % 特征向量
         
         % Result data
         DIS;      % double, DIS(NEQ, NLCASE), Displacement of nodes

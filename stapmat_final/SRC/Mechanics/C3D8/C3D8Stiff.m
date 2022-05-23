@@ -51,6 +51,7 @@ function Assemble()
 global sdata;
 global cdata;
 sdata.STIFF = zeros(sdata.NWK, 1, 'double');
+sdata.MASS = zeros(sdata.NWK, 1, 'double');
 
 NUME = sdata.NUME; MATP = sdata.MATP; XYZ = sdata.XYZ; 
 E = sdata.E; nu = sdata.nu; NGaussian = sdata.NGaussian; LM = sdata.LM;

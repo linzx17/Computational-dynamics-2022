@@ -29,7 +29,9 @@ for I = 1:ND
     II = LM(I);
     if (II ~= 0)
         ME = II - LS;
-        if (ME > MHT(II)) MHT(II) = ME; end
+        if (ME > MHT(II))
+            MHT(II) = ME;
+        end
     end
 end
 

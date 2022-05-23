@@ -50,12 +50,18 @@ function Assemble()
 global sdata;
 global cdata;
 sdata.STIFF = zeros(sdata.NWK, 1, 'double');
+sdata.MASS = zeros(sdata.NWK, 1, 'double');
 
 NUME = sdata.NUME; MATP = sdata.MATP; XYZ = sdata.XYZ; 
-E = sdata.E; nu = sdata.nu; NGaussian = sdata.NGaussian; LM = sdata.LM;
+E = sdata.E;
+rho = sdata.rho;
+nu = sdata.nu;
+NGaussian = sdata.NGaussian;
+LM = sdata.LM;
 
 for N = 1:NUME
     MTYPE = MATP(N);
+    rhoE = rho(MTYPE);
 
     [ng,ksi,eta,zeta,weight] = Get3DGaussianIntInfo( NGaussian );
 
@@ -70,21 +76,28 @@ for N = 1:NUME
                0, 0, 0, D2, 0, 0;
                0, 0, 0, 0, D2, 0;
                0, 0, 0, 0, 0, D2]; % sigma = D * epsilon
+    
 
     node_coor = XYZ(:,N); % 该单元上的节点的XYZ坐标
 
     Ke = zeros(sdata.NNODE*3,sdata.NNODE*3); % 单元刚度阵
+    Me_x = zeros(sdata.NNODE*3,sdata.NNODE*3); % 单元协调质量阵
     for i = 1:ng
         for j = 1:ng
             for k = 1:ng
-                [~,Jacobi,B] = C3D20NJB(node_coor,ksi(i),eta(j),zeta(k));
+                [Shape,Jacobi,B] = C3D20NJB(node_coor,ksi(i),eta(j),zeta(k));
                 Ke = Ke + weight(i)*weight(j)*weight(k) * (B') * D * B * det(Jacobi);
+                Me_x = Me_x + weight(i)*weight(j)*weight(k) * rhoE * (Shape') * Shape;
             end
         end
     end
+    Me = zeros(sdata.NNODE*3,sdata.NNODE*3); % 单元集中质量阵
+    for i = 1:sdata.NNODE*3
+        Me(i,i) = sum(Me_x(i,:));
+    end
 
     % SRC/Mechanics/ADDBAN.m
-    ADDBAN(Ke,LM(:,N));
+    ADDBAN(Ke,Me,LM(:,N));
 end
 
 % The third time stamp

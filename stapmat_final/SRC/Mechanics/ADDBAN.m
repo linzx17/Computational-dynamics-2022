@@ -18,12 +18,13 @@
 %*                                                                 *
 %* *****************************************************************
 
-function ADDBAN(S, LM)
+function ADDBAN(SK, SM, LM)
 
 % Get global data
 global sdata;
 MAXA = sdata.MAXA; 
 STIFF = sdata.STIFF;
+MASS = sdata.MASS;
 ND = sdata.NDOF * sdata.NNODE;
 for J = 1:ND
     JJ = LM(J);
@@ -31,14 +32,19 @@ for J = 1:ND
         for I = 1:J
             II = LM(I);
             if (II > 0)
-                if (JJ > II) KK = MAXA(JJ) + JJ - II;
-                else KK = MAXA(II) + II - JJ; end
-                STIFF(KK) = STIFF(KK) + S(I, J);
+                if (JJ > II)
+                    KK = MAXA(JJ) + JJ - II;
+                else
+                    KK = MAXA(II) + II - JJ;
+                end
+                STIFF(KK) = STIFF(KK) + SK(I, J);
+                MASS(KK) = MASS(KK) + SM(I, J);
             end
         end
     end
 end
 
 sdata.STIFF = STIFF;
+sdata.MASS = MASS;
 
 end
