@@ -89,7 +89,8 @@ n = size(K,1);
 lambda = zeros(num,1);
 phi = zeros(n,num);
 
-if abs(det(K)) < 1e-6
+% if abs(det(K)) < 1e-6
+if min( abs( eig(K) ) ) < 1e-6
     alpha = 1; % 如果K不满秩则移轴
 else
     alpha = 0;
