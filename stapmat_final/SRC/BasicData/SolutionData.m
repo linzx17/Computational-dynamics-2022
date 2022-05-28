@@ -35,6 +35,7 @@ classdef SolutionData
         Y;        % double, Y(NUMNP), Y coordinates
         Z;        % double, Z(NUMNP), Z coordinates
         ELEII;   %int, ELEII(NUMEM,NNODE), element information
+        ELEIIC3D20;
         NUMEGEM;   % int, NUMEGEM(NUMEG),Numid of elements in one element group;
         NODE_FLAG; % double, NODE_FLAG(NUMNP,NLCASE),In all element, the times of the node appears
 
@@ -76,8 +77,9 @@ classdef SolutionData
         MAXA;     % int, MAXA(NEQ)
         STIFF;    % double ,STIFF(NWK), store the elements of stiffness matrix
         MASS;     % double ,MASS(NWK), store the elements of mass matrix
-        FREQUENCY;% 固有频率
-        PHI;      % 特征向量
+        FREQUENCY;% 固有频率(Hz) = 特征值/2/pi
+        EIGVALUE; % 特征值
+        EIGVECTOR;% 特征向量
         
         % Result data
         DIS;      % double, DIS(NEQ, NLCASE), Displacement of nodes

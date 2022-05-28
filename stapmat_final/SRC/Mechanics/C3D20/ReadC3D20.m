@@ -108,6 +108,9 @@ for N = 1:NUME
             sdata.ELEII(N,i3) = II(i3);
         end
     end
+    for i3 = 1:sdata.NNODE
+        sdata.ELEIIC3D20(N,i3) = II(i3);
+    end
 
     MTYPE = round(tmp(sdata.NNODE+2));
 

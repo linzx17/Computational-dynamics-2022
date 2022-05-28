@@ -117,7 +117,8 @@ for N = 1:NUME
     end
 
     node_id = sdata.ELEII(element_id,:);
-    sdata.NODE_FLAG(node_id,NUM) = sdata.NODE_FLAG(node_id,NUM)+ones(8,1,'int8');
+%     sdata.NODE_FLAG(node_id,NUM) = sdata.NODE_FLAG(node_id,NUM)+ones(8,1,'int8');
+    sdata.NODE_FLAG(node_id,NUM) = sdata.NODE_FLAG(node_id,NUM)+ones(8,1);
 
     sdata.STRAIN( sdata.ELEII(element_id,:) , : , NUM ) = sdata.STRAIN(sdata.ELEII(element_id,:)  , : , NUM)+strain_n(:,:)';
     sdata.STRESS( sdata.ELEII(element_id,:) , : , NUM ) = sdata.STRESS(sdata.ELEII(element_id,:)  , : , NUM)+stress_n(:,:)';

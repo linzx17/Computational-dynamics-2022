@@ -13,6 +13,7 @@ IOUT = cdata.IOUT;
 NUME = sdata.NUME; MATP = sdata.MATP; XYZ = sdata.XYZ;
 E = sdata.E; nu = sdata.nu; NGaussian = sdata.NGaussian; LM = sdata.LM;
 U = sdata.DIS(:, NUM);
+ELEII = sdata.ELEIIC3D20;
 
 fprintf(IOUT, ['\n\n  S T R A I N AND S T R E S S  C A L C U L A T I O N S  F O R  ' ...
     'E L E M E N T  G R O U P %4d\n\n' ... 
@@ -37,10 +38,7 @@ for N = 1:NUME
                0, 0, 0, 0, D2, 0;
                0, 0, 0, 0, 0, D2]; % sigma = D * epsilon
 
-    node_coor = zeros(sdata.NNODE*3,1); % 一个单元上的节点的xyz坐标
-    node_coor(1:3:end) = XYZ(1:3:end,N);
-    node_coor(2:3:end) = XYZ(2:3:end,N);
-    node_coor(3:3:end) = XYZ(3:3:end,N);
+    node_coor = XYZ(:,N); % 该单元上的节点的XYZ坐标
     
     n_node_dof = sdata.NNODE*sdata.NDOF; % 一个单元上的节点自由度数
     ae = zeros(n_node_dof,1); % 第N个单元上的节点位移
@@ -63,22 +61,41 @@ for N = 1:NUME
     smooth_Ni = zeros(ng^3,20,'double');
     smooth_num = int8(0);
 
-    for i = 1:ng
-        for j = 1:ng
-            for k = 1:ng
-                [~,~,B] = C3D20NJB(node_coor,ksi(i),eta(j),zeta(k));
-                smooth_num = smooth_num+1;
-                smooth_Ni(smooth_num,:) = C3D20Ni(ksi(i),eta(j),zeta(k));
-                gpnum = gpnum + 1;
-                strain_e(:,gpnum) = B*ae.*[1 1 1 0.5 0.5 0.5]';
-                stress_e(:,gpnum) = D*strain_e(:,gpnum);
-                fprintf(IOUT,['     %3d            %3d           %13.6e    %13.6e    %13.6e    %13.6e    %13.6e    %13.6e' ...
-                    '        %13.6e    %13.6e    %13.6e    %13.6e    %13.6e    %13.6e\n'], ...
-                N, gpnum, strain_e(1,gpnum), strain_e(2,gpnum), strain_e(3,gpnum), strain_e(4,gpnum), strain_e(5,gpnum), strain_e(6,gpnum), ...
-                stress_e(1,gpnum), stress_e(2,gpnum), stress_e(3,gpnum), stress_e(4,gpnum), stress_e(5,gpnum), stress_e(6,gpnum));
-            end
-        end
+    cycle_order = [1, 2, 2, 1, 1, 2, 2, 1;
+                   1, 1, 2, 2, 1, 1, 2, 2;
+                   1, 1, 1, 1, 2, 2, 2, 2];
+    for cycle = 1:size(cycle_order,2)
+        i = cycle_order(1,cycle);
+        j = cycle_order(2,cycle);
+        k = cycle_order(3,cycle);
+        [~,~,B] = C3D20NJB(node_coor,ksi(i),eta(j),zeta(k));
+        smooth_num = smooth_num+1;
+        smooth_Ni(smooth_num,:) = C3D20Ni(ksi(i),eta(j),zeta(k));
+        gpnum = gpnum + 1;
+        strain_e(:,gpnum) = B*ae.*[1 1 1 0.5 0.5 0.5]';
+        stress_e(:,gpnum) = D*strain_e(:,gpnum);
+        fprintf(IOUT,['     %3d            %3d           %13.6e    %13.6e    %13.6e    %13.6e    %13.6e    %13.6e' ...
+            '        %13.6e    %13.6e    %13.6e    %13.6e    %13.6e    %13.6e\n'], ...
+        N, gpnum, strain_e(1,gpnum), strain_e(2,gpnum), strain_e(3,gpnum), strain_e(4,gpnum), strain_e(5,gpnum), strain_e(6,gpnum), ...
+        stress_e(1,gpnum), stress_e(2,gpnum), stress_e(3,gpnum), stress_e(4,gpnum), stress_e(5,gpnum), stress_e(6,gpnum));
     end
+
+%     for i = 1:ng
+%         for j = 1:ng
+%             for k = 1:ng
+%                 [~,~,B] = C3D20NJB(node_coor,ksi(i),eta(j),zeta(k));
+%                 smooth_num = smooth_num+1;
+%                 smooth_Ni(smooth_num,:) = C3D20Ni(ksi(i),eta(j),zeta(k));
+%                 gpnum = gpnum + 1;
+%                 strain_e(:,gpnum) = B*ae.*[1 1 1 0.5 0.5 0.5]';
+%                 stress_e(:,gpnum) = D*strain_e(:,gpnum);
+%                 fprintf(IOUT,['     %3d            %3d           %13.6e    %13.6e    %13.6e    %13.6e    %13.6e    %13.6e' ...
+%                     '        %13.6e    %13.6e    %13.6e    %13.6e    %13.6e    %13.6e\n'], ...
+%                 N, gpnum, strain_e(1,gpnum), strain_e(2,gpnum), strain_e(3,gpnum), strain_e(4,gpnum), strain_e(5,gpnum), strain_e(6,gpnum), ...
+%                 stress_e(1,gpnum), stress_e(2,gpnum), stress_e(3,gpnum), stress_e(4,gpnum), stress_e(5,gpnum), stress_e(6,gpnum));
+%             end
+%         end
+%     end
 
     %strain_e(6,8) 其中6表示有6中应变，8表示有8个高斯积分点
     %高斯积分点的顺序为
@@ -97,7 +114,7 @@ for N = 1:NUME
     strain_n_1 = (smooth_Ni \ strain_e')';
     stress_n_1 = (smooth_Ni \ stress_e')';
     
-    %strain_n_1(6,20) 其中6表示有6中应变，20表示有20个节点
+    %strain_n_1(6,20) 其中6表示有6种应变，20表示有20个节点
     %下面(ksi_i(1),eta_i(1),zeta_i(1))...(ksi_i(20),eta_i(20),zeta_i(20)))表示的即为strain_n_1(1,:)中依次求出的节点顺序
     % ksi_i  = [-1, 1, 1, -1, -1, 1, 1, -1, 0, 1, 0, -1, 0, 1, 0, -1, -1, 1, 1, -1];
     % eta_i  = [-1, -1, 1, 1, -1, -1, 1, 1, -1, 0, 1, 0, -1, 0, 1, 0, -1, -1, 1, 1];
@@ -115,10 +132,11 @@ for N = 1:NUME
         element_id = N;
     end
 
-    node_id = sdata.ELEII(element_id,:);
+    node_id = ELEII(element_id,:);
     sdata.NODE_FLAG(node_id,NUM) = sdata.NODE_FLAG(node_id,NUM)+ones(20,1,'double');
 
-    sdata.STRAIN( sdata.ELEII(element_id,:) , : , NUM ) = sdata.STRAIN(sdata.ELEII(element_id,:)  , : , NUM)+strain_n(:,:)';
-    sdata.STRESS( sdata.ELEII(element_id,:) , : , NUM ) = sdata.STRESS(sdata.ELEII(element_id,:)  , : , NUM)+stress_n(:,:)';
+    sdata.STRAIN( ELEII(element_id,:) , : , NUM ) = sdata.STRAIN(ELEII(element_id,:)  , : , NUM)+strain_n(:,:)';
+    sdata.STRESS( ELEII(element_id,:) , : , NUM ) = sdata.STRESS(ELEII(element_id,:)  , : , NUM)+stress_n(:,:)';
 
 end
+fprintf(IOUT, '\n\n');

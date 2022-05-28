@@ -20,30 +20,64 @@ global cdata;
 global sdata;
 
 NEQ = sdata.NEQ;
+IOUT = cdata.IOUT;
 
 NUM_EIG = 10; % 求解前NUM_GIE阶的特征值
 if NUM_EIG > NEQ
     NUM_EIG = NEQ;
 end
 
-sdata.FREQUENCY = zeros(NUM_EIG, 1, 'double');
-sdata.PHI = zeros(NEQ, NUM_EIG, 'double');
+% sdata.EIGVALUE = zeros(NUM_EIG, 1, 'double');
+% sdata.EIGVECTOR = zeros(NEQ, NUM_EIG, 'double');
 
 SPSTIFF = Matrix2Sparse(sdata.STIFF);
 SPMASS = Matrix2Sparse(sdata.MASS);
 SPMASS_full = full(SPMASS);%去掉约束的刚度阵，总体刚度阵
 SPSTIFF_full = full(SPSTIFF);
 
-% [V,D] = eigs(full(SPSTIFF),eye(36));
-[V,D] = eig(full(SPSTIFF),full(SPMASS));
+% % % 使用eig检查结果，可注释
+[V,D] = eig(SPSTIFF_full,SPMASS_full);
 D_sqrt = sqrt(diag(D))./2.0./pi;
+fprintf(IOUT, 'Eigenvalues computed using eig:\n');
+for iout = 1:NUM_EIG
+    fprintf(IOUT, '%e     ',D(iout,iout));
+end
+fprintf(IOUT, '\n\n');
+fprintf(IOUT, 'Frequency computed using eig:\n');
+for iout = 1:NUM_EIG
+    fprintf(IOUT, '%e     ',D_sqrt(iout));
+end
+fprintf(IOUT, '\n\n');
+% % % 
+
 tol = 1e-6; % 收敛判据
 % [x,lam,k] = inverse1(full(SPSTIFF),full(SPMASS),tol);
-% [lambda,phi] = inverse(SPSTIFF,SPMASS,NUM_EIG,tol); % 特征值lambda和特征向量phi
-[x,lam,k] = inverse1(full(SPSTIFF),full(SPMASS),tol);
-f_1 = sqrt(lam)./2.0./pi;%[Hz]
+% f_1 = sqrt(lam)./2.0./pi;%[Hz]
 [lambda,phi] = inverse(full(SPSTIFF),full(SPMASS),NUM_EIG,tol); % 特征值lambda和特征向量phi
 f_all = sqrt(lambda)./2.0./pi;%[Hz]
+
+sdata.EIGVALUE = lambda;
+sdata.EIGVECTOR = phi;
+sdata.FREQUENCY = f_all;
+
+fprintf(IOUT, 'Eigenvalues computed using stapmat:\n');
+for iout = 1:NUM_EIG
+    fprintf(IOUT, '%e     ',lambda(iout));
+end
+fprintf(IOUT, '\n\n');
+fprintf(IOUT, 'Frequency computed using stapmat:\n');
+for iout = 1:NUM_EIG
+    fprintf(IOUT, '%e     ',f_all(iout));
+end
+fprintf(IOUT, '\n\n');
+fprintf(IOUT, 'Eigen vector computed using stapmat:\n');
+for jout = 1:size(phi,1)
+    for iout = 1:NUM_EIG
+        fprintf(IOUT, '%e     ',phi(jout,iout));
+    end
+    fprintf(IOUT, '\n');
+end
+fprintf(IOUT, '\n\n');
 
 end
 

@@ -21,6 +21,7 @@ sdata = SolutionData;
 
 % Read InPut file
 fileID = 'C3D20_cantilever_beam';
+% fileID = 'C3D8_4np';
 % mkdir Data\ C3D20_cantilever_beam;
 
 fname = [fileID,'.in'];              % Specify the file name
