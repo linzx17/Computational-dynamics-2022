@@ -1,7 +1,7 @@
 clc;clear;close all;
 Dir = 'D:\SIMULIA\Temp\';
-% Hed ='Job-C3D20-cantilever-beam-martix';
-Hed ='Job-C3D20-cantilever-beam-rho7800-matrix';
+Hed ='Job-C3D20-cantilever-beam-martix';
+% Hed ='Job-C3D20-cantilever-beam-rho7800-matrix';
 
 
 MASS_ID = [Hed,'_MASS2.mtx'];
@@ -35,19 +35,11 @@ rank_Mass_total = rank(Mass_total);
 
 function [matrix,a_out] = GetMatrix(fid)
 a=textscan(fid,'%d %d %d %d %f','Delimiter',',');%
-a_max = max(a{5})
 n = max(a{1})*3;
 matrix = zeros(n,n);
-num = 0;
 for i = 1:length(a{1})
-        
         matrix( 3*(a{1}(i)-1)+a{2}(i) , 3*(a{3}(i)-1)+a{4}(i) )=a{5}(i);
         matrix( 3*(a{3}(i)-1)+a{4}(i) , 3*(a{1}(i)-1)+a{2}(i) )=a{5}(i);
-        if a{5}(i) ==1.0000e+36
-            num = num+1;
-            a_out(num,:)=[a{1}(i) a{2}(i) a{3}(i) a{4}(i)];
-        end
-
 end
 
 end

@@ -66,7 +66,8 @@ end
     GetStress(L);
     
 end
-
+Stiff_global = full(SPSTIFF);
+rank_Stiff_global = rank(Stiff_global);
 cdata.TIM(5, :) = clock;
 
 end
