@@ -58,8 +58,9 @@ rho = sdata.rho;
 nu = sdata.nu;
 NGaussian = sdata.NGaussian;
 LM = sdata.LM;
-
+rank_num = 0;
 for N = 1:NUME
+    rank_num = rank_num +1;
     MTYPE = MATP(N);
     rhoE = rho(MTYPE);
 
@@ -95,13 +96,15 @@ for N = 1:NUME
     end
     dV = mean(dV);
     alpha = rhoE * dV / sum(diag(Me_x));
-    Me = zeros(sdata.NNODE*3,sdata.NNODE*3); % 单元集中质量阵
+    Me = zeros(sdata.NNODE*3,sdata.NNODE*3); 
     for i = 1:sdata.NNODE*3
-%         Me(i,i) = sum(Me_x(i,:));
-        Me(i,i) = alpha * Me_x(i,i);
+%         Me(i,i) = sum(Me_x(i,:));% 单元集中质量阵v1 可能有负的
+        Me(i,i) = alpha * Me_x(i,i);% 单元集中质量阵v2 一定是正的
     end
-
+%     Me = Me_x;% 单元协调质量阵
+    
     % SRC/Mechanics/ADDBAN.m
+    rank_Ke(rank_num) = rank(Ke);
     ADDBAN(Ke,Me,LM(:,N));
 end
 

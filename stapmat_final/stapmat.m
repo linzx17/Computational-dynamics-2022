@@ -20,22 +20,23 @@ cdata = ControlData;
 sdata = SolutionData;
 
 % Read InPut file
-% fileID = 'Job_C3D8_ne1_wwt';
-% fileID = 'Job_C3D20_ne1_wwt';
-% fileID = 'modal_C3D20';
-fileID = 'Job_C3D20_ne1_lzx';
+fileID = 'C3D20_cantilever_beam';
+% mkdir Data\ C3D20_cantilever_beam;
+
 fname = [fileID,'.in'];              % Specify the file name
+
+
 ReadFile(fname); % 读取标题行、控制行、节点数据、载荷数
 
 % Write basic data of program 
 
-cdata.IOUT = fopen(['.\Data\',fileID,'.OUT'], 'w');
+cdata.IOUT = fopen(['.\Data\',fileID,'\',fileID,'.OUT'], 'w');
 WriteParasOut(); % 创建输出文件
 
-cdata.IDAT_ANIM = fopen(['.\Data\anim_',fileID,'.DAT'], 'w');
+cdata.IDAT_ANIM = fopen(['.\Data\',fileID,'\',fileID,'_anim.DAT'], 'w');
 WriteParasDatANIM();%创建Tecplot可读文件
 
-cdata.IDAT_CURV = fopen(['.\Data\curv_',fileID,'.DAT'], 'w');
+cdata.IDAT_CURV = fopen(['.\Data\',fileID,'\',fileID,'_curv.DAT'], 'w');
 WriteParasDatCURV();%创建Tecplot可读文件
 
 % Form the stiffness matrix

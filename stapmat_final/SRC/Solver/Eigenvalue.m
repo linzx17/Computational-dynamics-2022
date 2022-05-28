@@ -31,14 +31,19 @@ sdata.PHI = zeros(NEQ, NUM_EIG, 'double');
 
 SPSTIFF = Matrix2Sparse(sdata.STIFF);
 SPMASS = Matrix2Sparse(sdata.MASS);
+SPMASS_full = full(SPMASS);%去掉约束的刚度阵，总体刚度阵
+SPSTIFF_full = full(SPSTIFF);
 
-[V,D] = eigs(full(SPSTIFF),eye(36));
+% [V,D] = eigs(full(SPSTIFF),eye(36));
 [V,D] = eig(full(SPSTIFF),full(SPMASS));
+D_sqrt = sqrt(diag(D))./2.0./pi;
 tol = 1e-6; % 收敛判据
 % [x,lam,k] = inverse1(full(SPSTIFF),full(SPMASS),tol);
 % [lambda,phi] = inverse(SPSTIFF,SPMASS,NUM_EIG,tol); % 特征值lambda和特征向量phi
 [x,lam,k] = inverse1(full(SPSTIFF),full(SPMASS),tol);
+f_1 = sqrt(lam)./2.0./pi;%[Hz]
 [lambda,phi] = inverse(full(SPSTIFF),full(SPMASS),NUM_EIG,tol); % 特征值lambda和特征向量phi
+f_all = sqrt(lambda)./2.0./pi;%[Hz]
 
 end
 

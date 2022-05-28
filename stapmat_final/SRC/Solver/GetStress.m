@@ -26,7 +26,7 @@ NUMEG = cdata.NUMEG;
 IOUT = cdata.IOUT;
 IDAT_CURV = cdata.IDAT_CURV;
 
-sdata.NODE_FLAG = zeros(cdata.NUMNP,cdata.NLCASE,'int8');
+sdata.NODE_FLAG = zeros(cdata.NUMNP,cdata.NLCASE,'double');
 sdata.STRAIN = zeros(cdata.NUMNP,6,cdata.NLCASE,'double');
 sdata.STRESS = zeros(cdata.NUMNP,6,cdata.NLCASE,'double');
 

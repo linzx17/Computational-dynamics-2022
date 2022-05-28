@@ -36,7 +36,7 @@ classdef SolutionData
         Z;        % double, Z(NUMNP), Z coordinates
         ELEII;   %int, ELEII(NUMEM,NNODE), element information
         NUMEGEM;   % int, NUMEGEM(NUMEG),Numid of elements in one element group;
-        NODE_FLAG; % int, NODE_FLAG(NUMNP,NLCASE),In all element, the times of the node appears
+        NODE_FLAG; % double, NODE_FLAG(NUMNP,NLCASE),In all element, the times of the node appears
 
         R;        % double, R(NEQ), Load vector
         NOD;      % int, NOD(NLOAD), Node number to which this load is applied (1~NUMNP)

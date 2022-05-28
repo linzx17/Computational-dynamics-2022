@@ -1,0 +1,3 @@
+TITLE = "Example : C3D20_cantilever_beam_matlab"
+VARIABLES= "X"   "Y"   "Z" 
+

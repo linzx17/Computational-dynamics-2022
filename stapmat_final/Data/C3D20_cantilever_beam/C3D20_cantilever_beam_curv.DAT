@@ -1,2 +1,2 @@
-TITLE = "Example : C3D20_ne1"
+TITLE = "Example : C3D20_cantilever_beam_matlab"
 VARIABLES="NODE_ID"       "U1"           "U2"           "U3"          "E11"          "E22"          "E33"          "E12"          "E13"          "E23"          "S11"          "S22"          "S33"          "S12"          "S13"          "S23"

@@ -2,26 +2,27 @@
 %提取abaqus的节点和单元信息
 %abaqus节点信息 包括 编号 xyz坐标 四维数组
 clc;clear;close all;
-Dir = 'D:\SIMULIA\Temp\Dynamic_Mechanic';
+Dir = 'D:\SIMULIA\Temp';
 
-hed = 'C3D20_ne1';                                                   %文件头
+hed = 'C3D20_cantilever_beam_matlab';                  %文件头
 hed_Flag = 2;                                                            % 1-C3D8  2-C3D20
-numnp = 20;                                                             %节点个数
-numel = 1;                                                                 %单元个数
+numnp = 321;                                                             %节点个数
+numel = 40;                                                                 %单元个数
 ID(1:3,numnp)=0;
-ID(1:3,[2 4 6 8])=1;                                                      %添加约束
+ID(1:3,[9,130,6,116,3,131,117,115,8,123,5,105,2,124,106,104,7,125,4,107,1])=1; 
+%添加约束
 
-abaqus_inp_ID = ['\Job_',hed,'_wwt','.inp'];%abaqus路径
-matlab_in_ID = ['\Job_',hed,'_wwt','.in'];%matlab路径
+abaqus_inp_ID = ['\Job_',hed,'.inp'];%abaqus路径
+matlab_in_ID = ['\Job_',hed,'.in'];%matlab路径
 
 fileID_abaqus= fopen([Dir,abaqus_inp_ID]);
 node_data=textscan(fileID_abaqus,'%d %f %f %f',numnp,'Delimiter',',','headerlines',9);
 fclose(fileID_abaqus);
 fileID_abaqus= fopen([Dir,abaqus_inp_ID]);
 if hed_Flag == 1
-    element_data=textscan(fileID_abaqus,'%d %d %d %d %d %d %d %d %d',numel,'Delimiter',',','headerlines',9+numnp);
+    element_data=textscan(fileID_abaqus,'%d %d %d %d %d %d %d %d %d',numel,'Delimiter',',','headerlines',10+numnp);
 elseif hed_Flag == 2
-    element_data=textscan(fileID_abaqus,'%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d',numel,'Delimiter',',','headerlines',9+numnp+1);
+    element_data=textscan(fileID_abaqus,'%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d',numel,'Delimiter',',','headerlines',10+numnp);
 end
 fclose(fileID_abaqus);
 
@@ -43,15 +44,17 @@ npar(1,3) = 1;%本单元组中不同材料/截面性质组数
     %length(material(:,1)) = npar(1,3)
     material(1,1) = 210000;                                              %E(1)   杨氏模量
     material(1,2) = 0.3;                                                     %MU(1)  泊松比
-    material(1,3) = 1e-9;                                                   %RHO(1) 密度 1*10^3[kg/(mm^3)]
+    material(1,3) = 7.8e-9;                                                   %RHO(1) 密度 1*10^3[kg/(mm^3)]
 npar(1,4) = 2;                                                                  %高斯积分阶次
 
 nlcase = 1;%载荷工况数
-    nload(1) = 4;%集中载荷的个数
+    nload(1) = 16;%集中载荷的个数
     %length(load_data(:,1)) = nload(1)
-    load_data(1:nload(1),2) = [5 1 3 7];                                       %集中载荷作用的节点号
-    load_data(1:nload(1),3) = [2 2 2 2];                                       %载荷作用方向
-    load_data(1:nload(1),4) = [-1 -1 -1 -1];                                   %载荷作用值
+    load_data(1:nload(1),2) = [93 99 310 320 311 319 96 309 304 315 301 314 302 91 97 94];
+    %集中载荷作用的节点号
+    load_data(1:nload(1),3) = 1.*ones(16,1);                                       %载荷作用方向
+    load_data(1:nload(1),4) = [-833.33 -833.33 3333.3 3333.3 3333.3 3333.3 ...
+        -1666.7 6666.7 -3333.3 -3333.3 -3333.3 -3333.3 -6666.7 833.33 833.33 1666.7];                                   %载荷作用值
 modex = 2;%求解模式
 
 
