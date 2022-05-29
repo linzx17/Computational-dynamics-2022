@@ -44,6 +44,9 @@ for N = 1:cdata.NUMEG % 遍历单元组
         % % NPAR(3) 材料/截面属性数
         % % NPAR(4) 该单元类型采用的高斯积分阶数
     end
+    if cdata.NPAR(1) == 4
+        cdata.NPAR(4) = 3; % 如果单元类型为C3D20，则高斯积分阶数改为3，如果小于3，则无法正确应力磨平
+    end
     
     sdata.NUMEGEM(N,1) = NUMEM + cdata.NPAR(2);
 
@@ -80,4 +83,45 @@ if (cdata.NUMEM ~= NUMEM)
 end
 
 fprintf(IDAT_ANIM,'ZONE F=FEPOINT N = %5d E = %5d ET=BRICK C=CYAN \n',cdata.NUMNP,cdata.NUMEM);
+
+sdata.SPSTIFF = Matrix2Sparse(sdata.STIFF);
+sdata.SPMASS = Matrix2Sparse(sdata.MASS);
+
+end
+
+% % ----------------------- Functions -----------------------------------
+
+% Convert the stiff vector to a sparse stiff matrix
+function SPMatrix = Matrix2Sparse(A)
+
+global sdata;
+% A = sdata.STIFF;
+MAXA = sdata.MAXA;
+NEQ = sdata.NEQ;
+NWK = sdata.NWK;
+IIndex = zeros(NWK*2-NEQ, 1);
+JIndex = IIndex;
+STIFF = IIndex;
+
+NUM = 1;
+NUMC = 0;
+for N = 1:NEQ
+    KU = MAXA(N + 1) - MAXA(N);
+    for L = 1:KU
+        IIndex(NUM) = N;
+        JIndex(NUM) = N - L + 1;
+        STIFF(NUM) = A(NUM);
+        NUM = NUM + 1;
+        if (L == 1)
+            NUMC = NUMC + 1;
+            continue;
+        end
+        SYMN = NUM-1 - NUMC + NWK;
+        IIndex(SYMN) = N - L + 1;
+        JIndex(SYMN) = N;
+        STIFF(SYMN) = A(NUM-1);
+    end
+end
+
+SPMatrix = sparse(IIndex, JIndex, STIFF, NEQ, NEQ);
 end

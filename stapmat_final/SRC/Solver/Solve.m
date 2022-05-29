@@ -33,13 +33,19 @@ sdata.DIS = zeros(NEQ, NLCASE, 'double');
 sdata.STRAIN = zeros(NEQ, NLCASE, 'double');
 sdata.STRESS = zeros(NEQ, NLCASE, 'double');
 
+% if MODEX == 3
+%     cdata.TIM(4,:) = clock;
+%     cdata.TIM(5, :) = clock;
+%     return;
+% end
+
 % The pre-process of Solution
 % MODEX = 1, LDLTFactor() - ColSol()     
 % MODEX = 2, Stiff2Sparse() - sdata.SPSTIFF \ Sdata.R(:, L)
 if (MODEX == 1)
     LDLTFactor();
-else 
-    SPSTIFF = Stiff2Sparse();
+% else 
+%     SPSTIFF = Stiff2Sparse();
 end
 
 cdata.TIM(4,:) = clock;
@@ -51,7 +57,7 @@ for L = 1:NLCASE % 载荷工况数
 if (MODEX == 1)
     ColSol(L);
 else
-    sdata.DIS(:,L) = SPSTIFF \ sdata.R(:,L);
+    sdata.DIS(:,L) = sdata.SPSTIFF \ sdata.R(:,L);
 end
     
 %   Print displacements
@@ -66,42 +72,13 @@ end
     GetStress(L);
     
 end
-Stiff_global = full(SPSTIFF);
-rank_Stiff_global = rank(Stiff_global);
+% Stiff_global = full(SPSTIFF);
+% rank_Stiff_global = rank(Stiff_global);
 cdata.TIM(5, :) = clock;
 
 end
 
 % ----------------------- Functions -----------------------------------
-
-% Convert the stiff vector to a sparse stiff matrix
-function SPSTIFF = Stiff2Sparse()
-
-global sdata;
-A = sdata.STIFF; MAXA = sdata.MAXA; NEQ = sdata.NEQ; NWK = sdata.NWK;
-IIndex = zeros(NWK*2-NEQ, 1);
-JIndex = IIndex;
-STIFF = IIndex;
-
-NUM = 1;
-NUMC = 0;
-for N = 1:NEQ
-    KU = MAXA(N + 1) - MAXA(N);
-    for L = 1:KU
-        IIndex(NUM) = N;
-        JIndex(NUM) = N - L + 1;
-        STIFF(NUM) = A(NUM);
-        NUM = NUM + 1;
-        if (L == 1) NUMC = NUMC + 1;continue; end
-        SYMN = NUM-1 - NUMC + NWK;
-        IIndex(SYMN) = N - L + 1;
-        JIndex(SYMN) = N;
-        STIFF(SYMN) = A(NUM-1);
-    end
-end
-
-SPSTIFF = sparse(IIndex, JIndex, STIFF, NEQ, NEQ);
-end
 
 % Print Displacements
 function WriteDis(NUM) % 第NUM个载荷工况

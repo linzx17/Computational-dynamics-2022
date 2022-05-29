@@ -31,7 +31,7 @@ cdata.IIN = fopen(fname, 'r'); % 文件标识符（>=3的整数）
 fprintf('Input phase ...\n\n');
 
 % the first time stamp
-cdata.TIM = zeros(5, 6, 'double');
+cdata.TIM = zeros(6, 6, 'double');
 cdata.TIM(1,:) = clock;
 
 IIN = cdata.IIN;
