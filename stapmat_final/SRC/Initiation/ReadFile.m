@@ -45,7 +45,14 @@ cdata.NUMEM = int64(tmp(3)); % 单元总数
 cdata.NLCASE = int64(tmp(4)); % 载荷工况数
 cdata.MODEX = int64(tmp(5)); % 求解模式
 
-if (cdata.NUMNP == 0) return; end
+if cdata.MODEX == 4 % 如果求解模式为4，即求解动力学问题，则读求解时间和求解方法
+    cdata.DSTIME = tmp(6);
+    cdata.DSMETH = int64(tmp(7));
+end
+
+if (cdata.NUMNP == 0)
+    return;
+end
 
 %% Read nodal point data
 InitBasicData();
@@ -86,6 +93,12 @@ for N = 1:cdata.NLCASE % 载荷工况数
     tmp = str2num(fgetl(IIN));
     cdata.LL = int64(tmp(1)); % 载荷工况号
     cdata.NLOAD = int64(tmp(2)); % 本工况中集中载荷的个数
+% % % % 如果求解动力学问题，则存储第一个载荷工况下的动载荷类型、动载荷参数
+    if (4 == cdata.MODEX) && (1 == N)
+        cdata.DLTYPE = int64(tmp(3));
+        cdata.DLPAR = int64(tmp(4:7));
+    end
+% % % % 
     NLOAD = cdata.NLOAD;
 %   Init load data
     sdata.NOD = zeros(NLOAD, 1, 'int64'); % 集中载荷作用的节点号
@@ -111,7 +124,10 @@ for N = 1:cdata.NLCASE % 载荷工况数
             R(II, N) = R(II, N) + FLOAD(L);
         end
     end
-    sdata.NOD = NOD; sdata.IDIRN = IDIRN; sdata.FLOAD = FLOAD; sdata.R = R;
+    sdata.NOD = NOD;
+    sdata.IDIRN = IDIRN;
+    sdata.FLOAD = FLOAD;
+    sdata.R = R;
 end
 
 end

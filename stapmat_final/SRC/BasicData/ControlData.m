@@ -27,7 +27,12 @@ classdef ControlData
         LL;            % Load case number
         NLOAD;         % The number of concentrated loads applied in this load case
 
+        DLTYPE;        % Dynamic Load Type，动力学载荷类型；1-正弦（包含常数）
+        DLPAR;         % Dynamic Load Parameters，动力学载荷集参数
+
         MODEX;         % Solution mode: 0 - data check only; 1 - execution; 2 - MATLAB稀疏矩阵左除求解
+        DSTIME;        % 动力学求解时间：从0到DSTIME
+        DSMETH;        % 动力学求解方法：1-精细积分；2-模态叠加；3-Verlet；4-广义alpha
 
         TIM;           % Timing information
         HED;           % Master heading information for usr in labeling the output

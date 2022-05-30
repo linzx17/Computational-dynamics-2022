@@ -2172,13 +2172,13 @@ Eigenvalues computed using eig:
 3.778267e+08     3.778267e+08     6.010262e+09     1.067055e+10     1.067055e+10     2.385890e+10     5.337867e+10     5.885986e+10     5.885986e+10     1.443415e+11     
 
 Frequency computed using eig:
-3.093616e+03     3.093616e+03     1.233863e+04     1.644045e+04     1.644045e+04     2.458359e+04     3.677088e+04     3.861266e+04     3.861266e+04     6.046662e+04     
+6.013298e+07     6.013298e+07     9.565630e+08     1.698271e+09     1.698271e+09     3.797262e+09     8.495479e+09     9.367837e+09     9.367837e+09     2.297266e+10     
 
 Eigenvalues computed using stapmat:
-3.778267e+08     3.778267e+08     6.010264e+09     1.067055e+10     1.067055e+10     2.385890e+10     5.337890e+10     5.885961e+10     5.885986e+10     1.443423e+11     
+3.778267e+08     3.778267e+08     6.010263e+09     1.067055e+10     1.067055e+10     2.385890e+10     5.337889e+10     5.885961e+10     5.885986e+10     1.443423e+11     
 
 Frequency computed using stapmat:
-3.093616e+03     3.093616e+03     1.233863e+04     1.644044e+04     1.644045e+04     2.458359e+04     3.677096e+04     3.861258e+04     3.861266e+04     6.046679e+04     
+3.093616e+03     3.093616e+03     1.233863e+04     1.644045e+04     1.644045e+04     2.458359e+04     3.677096e+04     3.861258e+04     3.861266e+04     6.046679e+04     
 
 
 
@@ -2186,11 +2186,11 @@ Frequency computed using stapmat:
 
  S O L U T I O N   T I M E   L O G   I N   S E C
 
-     TIME FOR INPUT PHASE  . . . . . . . . . . . . . . =         0.06
+     TIME FOR INPUT PHASE  . . . . . . . . . . . . . . =         0.07
      TIME FOR CALCULATION OF STIFFNESS MATRIX  . . . . =         0.22
-     TIME FOR FACTORIZATION OF STIFFNESS MATRIX  . . . =         1.84
+     TIME FOR FACTORIZATION OF STIFFNESS MATRIX  . . . =         1.91
      TIME FOR LOAD CASE SOLUTIONS  . . . . . . . . . . =         0.25
 
-     TIME FOR Eigenvalues  . . . . . . . . . . . . . . =         2.10
+     TIME FOR Eigenvalues  . . . . . . . . . . . . . . =         2.04
 
-      T O T A L   S O L U T I O N   T I M E  . . . . . =         4.46
+      T O T A L   S O L U T I O N   T I M E  . . . . . =         4.49

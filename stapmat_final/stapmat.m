@@ -20,7 +20,8 @@ cdata = ControlData;
 sdata = SolutionData;
 
 % Read InPut file
-fileID = 'C3D20_cantilever_beam';
+fileID = 'Job-C3D8-cantilever-beam-rho7800-dyna';
+% fileID = 'C3D20_cantilever_beam';
 % fileID = 'Job_C3D20-cantilever-beam-element320';
 % fileID = 'C3D8_3surf';
 % mkdir Data\ C3D20_cantilever_beam;
@@ -43,11 +44,14 @@ WriteParasDatCURV();%创建Tecplot可读文件
 % Form the stiffness matrix
 GetStiff();
 
-% Triangularize stiffness matrix
-Solve();
+% % solve
+SOLVE();
 
-% 特征值和特征向量
-Eigenvalue();
+% % Triangularize stiffness matrix
+% Solve();
+% 
+% % 特征值和特征向量
+% Eigenvalue();
 
 % Finalize
 Finalize();
@@ -57,8 +61,8 @@ Finalize();
 % Functions
 % Add paths of functions
 function AddPath()
-clear;
 close all;
+clear;
 clc;
 
 addpath .\SRC\Initiation
@@ -69,6 +73,9 @@ addpath .\SRC\Mechanics\Plane
 addpath .\SRC\Mechanics\C3D8
 addpath .\SRC\Mechanics\C3D20
 addpath .\SRC\Solver
+addpath .\SRC\Solver\Statics
+addpath .\SRC\\Solver\Dynamics
+
 end
 
 function Finalize()

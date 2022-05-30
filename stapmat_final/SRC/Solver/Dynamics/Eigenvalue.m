@@ -7,7 +7,7 @@
 %* - Call procedures:                                              *
 %*                                                                 *
 %* - Called by :                                                   *
-%*     stapmat.m                                                   *
+%*     SOLVE.m                                                   *
 %*                                                                 *
 %* - Programmed by:                                                *
 %*     Zixiong Lin, 2022.05.23                                     *
@@ -19,11 +19,11 @@ function Eigenvalue()
 global cdata;
 global sdata;
 
-MODEX = cdata.MODEX;
-if MODEX ~= 3
-    cdata.TIM(6, :) = clock;
-    return;
-end
+% MODEX = cdata.MODEX;
+% if MODEX ~= 3
+%     cdata.TIM(6, :) = clock;
+%     return;
+% end
 
 NEQ = sdata.NEQ;
 IOUT = cdata.IOUT;
@@ -41,17 +41,19 @@ end
 SPSTIFF = sdata.SPSTIFF;
 SPMASS = sdata.SPMASS;
 
-SPSTIFF = full(SPSTIFF);
+SPSTIFF = full(SPSTIFF); % 使用全矩阵相比稀疏矩阵，特征值求解精度略高（大约在第5位有效数字）
 SPMASS = full(SPMASS);
 
 % % % % 使用eig检查结果，可注释
 SPMASS_full = full(SPMASS);%去掉约束的刚度阵，总体刚度阵
 SPSTIFF_full = full(SPSTIFF);
-[V,D] = eig(SPSTIFF_full,SPMASS_full);
-D_sqrt = sqrt(diag(D))./2.0./pi;
+D = eig(SPSTIFF_full,SPMASS_full);
+D_sqrt = sqrt(sort(D)) /2/pi;
+% D_sqrt = sqrt(diag(D))./2.0./pi;
+sdata.FRE_EIG = D_sqrt;
 fprintf(IOUT, 'Eigenvalues computed using eig:\n');
 for iout = 1:NUM_EIG
-    fprintf(IOUT, '%e     ',D(iout,iout));
+    fprintf(IOUT, '%e     ',D(iout));
 end
 fprintf(IOUT, '\n\n');
 fprintf(IOUT, 'Frequency computed using eig:\n');
@@ -69,7 +71,7 @@ tol = 1e-6; % 收敛判据
 f_all = sqrt(lambda)./2.0./pi;%[Hz]
 
 sdata.EIGVALUE = lambda;
-% sdata.EIGVECTOR = phi;
+sdata.EIGVECTOR = phi;
 sdata.FREQUENCY = f_all;
 
 modal_dis = zeros(NUMNP,3,NUM_EIG);
@@ -87,7 +89,7 @@ for f = 1:NUM_EIG
         end
         modal_dis(II,:,f) = D';
         
-        sdata.EIGVECTOR(II,[1 2 3],f) = [D(1),D(2),D(3)];
+        sdata.EIGDISP(II,[1 2 3],f) = [D(1),D(2),D(3)];
     end
 end
 

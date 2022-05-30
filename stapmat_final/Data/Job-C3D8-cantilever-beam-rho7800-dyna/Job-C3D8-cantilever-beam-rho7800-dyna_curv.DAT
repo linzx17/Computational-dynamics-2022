@@ -1,0 +1,2 @@
+TITLE = "Example : Job-C3D8-cantilever-beam-rho7800-dyna"
+VARIABLES="NODE_ID"       "U1"           "U2"           "U3"          "E11"          "E22"          "E33"          "E12"          "E13"          "E23"          "S11"          "S22"          "S33"          "S12"          "S13"          "S23"

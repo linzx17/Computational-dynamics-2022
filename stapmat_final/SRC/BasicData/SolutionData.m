@@ -13,7 +13,6 @@
 
 classdef SolutionData
     properties (Constant)
-%         NG = 2;% PlaneStress默认选择高斯积分点个数
         
         % Gauss coord, 1D to 3D
         GC1 = double(0.0);
@@ -23,6 +22,9 @@ classdef SolutionData
         GW1 = double(2.0);
         GW2 = double([1.0, 1.0]);
         GW3 = double([5.0/9.0, 8.0/9.0, 5.0/9.0]);
+        % Rayleigh阻尼系数：阻尼矩阵 C = Calpha*M + Cbeta*K;
+        Calpha = 0; 
+        Cbeta = 0;
     end
     properties
         NGaussian;
@@ -78,15 +80,19 @@ classdef SolutionData
         MASS;     % double ,MASS(NWK), store the elements of mass matrix
         SPSTIFF;  % 刚度阵的matlab稀疏矩阵
         SPMASS;   % 质量阵的matlab稀疏矩阵
-        FREQUENCY;% 固有频率(Hz) = 特征值/2/pi
+        FRE_EIG;  % 调用eig函数求得的所有固有频率(Hz)
+        FREQUENCY;% 固有频率(Hz) = sqrt(特征值)/2/pi
         EIGVALUE; % 特征值
-        EIGVECTOR;% 特征向量
+        EIGVECTOR;% 阵型
+        EIGDISP;  % 阵型对应的节点位移
         
         % Result data
         DIS;      % double, DIS(NEQ, NLCASE), Displacement of nodes
         DISP;    % double, DIS(NUMNP, NLCASE), Displacement of nodes
         STRAIN;   % double, STRAIN(NUMNP,6, NLCASE), Strain
         STRESS;   % double, STRESS(NUMNP,6, NLCASE), Stress
+        DYNADIS;    % 时间积分计算结果：每一列为一个自由度，行为时间
+        DYNADT;     % DYDIS结果中对应的时间序列
         
     end
 end
