@@ -74,7 +74,7 @@ addpath .\SRC\Mechanics\C3D8
 addpath .\SRC\Mechanics\C3D20
 addpath .\SRC\Solver
 addpath .\SRC\Solver\Statics
-addpath .\SRC\\Solver\Dynamics
+addpath .\SRC\Solver\Dynamics
 
 end
 
