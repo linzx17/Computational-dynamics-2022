@@ -315,10 +315,10 @@ Frequency computed using eig:
 1.394344e-02     1.394344e-02     6.366520e-02     7.655221e-02     7.655221e-02     1.037914e-01     1.872822e-01     1.872822e-01     1.925693e-01     3.132203e-01     
 
 Eigenvalues computed using stapmat:
-7.675373e-03     7.675373e-03     1.600163e-01     2.313529e-01     2.313531e-01     4.252870e-01     1.384702e+00     1.384702e+00     1.463953e+00     3.873138e+00     
+7.675373e-03     7.675373e-03     1.600163e-01     2.313530e-01     2.313530e-01     4.252871e-01     1.384701e+00     1.384702e+00     1.463953e+00     3.873136e+00     
 
 Frequency computed using stapmat:
-1.394344e-02     1.394344e-02     6.366522e-02     7.655218e-02     7.655222e-02     1.037914e-01     1.872829e-01     1.872829e-01     1.925678e-01     3.132215e-01     
+1.394344e-02     1.394344e-02     6.366521e-02     7.655220e-02     7.655221e-02     1.037914e-01     1.872829e-01     1.872830e-01     1.925678e-01     3.132215e-01     
 
 
 
@@ -327,10 +327,10 @@ Frequency computed using stapmat:
  S O L U T I O N   T I M E   L O G   I N   S E C
 
      TIME FOR INPUT PHASE  . . . . . . . . . . . . . . =         0.05
-     TIME FOR CALCULATION OF STIFFNESS MATRIX  . . . . =         0.07
-     TIME FOR FACTORIZATION OF STIFFNESS MATRIX  . . . = -63821267454.34
+     TIME FOR CALCULATION OF STIFFNESS MATRIX  . . . . =         0.06
+     TIME FOR FACTORIZATION OF STIFFNESS MATRIX  . . . = -63821268416.56
      TIME FOR LOAD CASE SOLUTIONS  . . . . . . . . . . =         0.00
 
-     TIME FOR Eigenvalues  . . . . . . . . . . . . . . = 63821267454.56
+     TIME FOR Eigenvalues  . . . . . . . . . . . . . . = 63821268416.76
 
-      T O T A L   S O L U T I O N   T I M E  . . . . . =         0.33
+      T O T A L   S O L U T I O N   T I M E  . . . . . =         0.31

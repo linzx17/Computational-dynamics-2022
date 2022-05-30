@@ -45,7 +45,7 @@ WriteParasDatCURV();%创建Tecplot可读文件
 GetStiff();
 
 % % solve
-SOLVE();
+Solve();
 
 % % Triangularize stiffness matrix
 % Solve();

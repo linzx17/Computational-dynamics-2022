@@ -38,13 +38,13 @@ for i = 1:n-1
 end
 u_verlet = u';
 
-% % 测试结果
-figure
-plot(t,u_verlet(:,260),'LineWidth',1.5);
-xlabel('time(s)'); ylabel('u_{260}');
-title('速度Verlet');
-set(gca,'FontSize',16);
-% % 
+% % % 测试结果
+% figure
+% plot(t,u_verlet(:,260),'LineWidth',1.5);
+% xlabel('time(s)'); ylabel('u_{260}');
+% title('速度Verlet');
+% set(gca,'FontSize',16);
+% % % 
 
 sdata.DYNADT = t;
 sdata.DYNADIS = u_verlet;

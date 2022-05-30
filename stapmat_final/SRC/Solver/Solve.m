@@ -1,5 +1,5 @@
 % % 根据不同控制变量，调用不同的求解器进行求解
-function SOLVE()
+function Solve()
 
 global cdata;
 global sdata;
