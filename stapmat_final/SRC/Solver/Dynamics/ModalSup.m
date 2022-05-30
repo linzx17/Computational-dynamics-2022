@@ -31,13 +31,13 @@ end
 u_modal = phi * finalq';
 u_modal = u_modal';
 
-% % % 测试结果
-% figure
-% plot(t,u_modal(:,260),'LineWidth',1.5);
-% xlabel('time(s)'); ylabel('u_{260}');
-% title('模态叠加');
-% set(gca,'FontSize',16);
-% % % 
+% % 测试结果
+figure
+plot(t,u_modal(:,260),'LineWidth',1.5);
+xlabel('time(s)'); ylabel('u_{260}');
+title('模态叠加');
+set(gca,'FontSize',16);
+% % 
 
 sdata.DYNADT = t;
 sdata.DYNADIS = u_modal;

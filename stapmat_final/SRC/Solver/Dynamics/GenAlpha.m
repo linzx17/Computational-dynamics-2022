@@ -22,13 +22,13 @@ Q = sdata.R(:,1); % 节点载荷
 
 u_alpha = generalized_alpha(K,M,C,Q,t,rho);
 
-% % % 测试结果
-% figure
-% plot(t,u_alpha(:,260),'LineWidth',1.5);
-% xlabel('time(s)'); ylabel('u_{260}');
-% title('广义alpha');
-% set(gca,'FontSize',16);
-% % % 
+% % 测试结果
+figure
+plot(t,u_alpha(:,260),'LineWidth',1.5);
+xlabel('time(s)'); ylabel('u_{260}');
+title('广义alpha');
+set(gca,'FontSize',16);
+% % 
 
 sdata.DYNADT = t;
 sdata.DYNADIS = u_alpha;

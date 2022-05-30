@@ -20,7 +20,8 @@ cdata = ControlData;
 sdata = SolutionData;
 
 % Read InPut file
-fileID = 'Job-C3D8-cantilever-beam-rho7800-dyna';
+fileID = 'Job-C3D20-canbeam-rho7800-40-dyna-800s-matlab';
+% fileID = 'Job-C3D8-cantilever-beam-rho7800-dyna';
 % fileID = 'C3D20_cantilever_beam';
 % fileID = 'Job_C3D20-cantilever-beam-element320';
 % fileID = 'C3D8_3surf';
