@@ -232,7 +232,7 @@
 
          NODE           DIRECTION           LOAD
        NUMBER                               MAGNITUDE
-           91                      1              -1.00000e+04           93                      1               1.00000e+04           94                      1              -2.00000e+04           96                      1               2.00000e+04           97                      1              -1.00000e+04           99                      1               1.00000e+04
+           91                      1              -1.00000e+06           93                      1               1.00000e+06           94                      1              -2.00000e+06           96                      1               2.00000e+06           97                      1              -1.00000e+06           99                      1               1.00000e+06
 
  E L E M E N T   G R O U P   D A T A
 
@@ -253,7 +253,7 @@
      SET          YOUNG'S       POSSION RATIO         DENSITY
  NUMBER     MODULUS              
                            E                       nu              rho
-     1          2.10000e+05      3.000000e-01      7800
+     1          2.10000e+11      3.000000e-01      7800
 
 
  E L E M E N T   I N F O R M A T I O N
@@ -308,29 +308,20 @@
      NUMBER OF MATRIX ELEMENTS . . . . . . . . . . .(NWK) =       9261
      MAXIMUM HALF BANDWIDTH  . . . . . . . . . . . .(MK ) =         42
      MEAN HALF BANDWIDTH . . . . . . . . . . . . . .(MM ) =         34
+Eigenvalue calculation Starts...
 Eigenvalues computed using eig:
-7.675373e-03     7.675373e-03     1.600162e-01     2.313530e-01     2.313530e-01     4.252873e-01     1.384691e+00     1.384691e+00     1.463976e+00     3.873106e+00     
+7.675373e+03     7.675373e+03     1.600162e+05     2.313530e+05     2.313530e+05     4.252873e+05     
 
 Frequency computed using eig:
-1.394344e-02     1.394344e-02     6.366520e-02     7.655221e-02     7.655221e-02     1.037914e-01     1.872822e-01     1.872822e-01     1.925693e-01     3.132203e-01     
+1.394344e+01     1.394344e+01     6.366520e+01     7.655221e+01     7.655221e+01     1.037914e+02     
 
 Eigenvalues computed using stapmat:
-7.675373e-03     7.675373e-03     1.600163e-01     2.313529e-01     2.313530e-01     4.252871e-01     1.384701e+00     1.384701e+00     1.463954e+00     3.873136e+00     
+7.675373e+03     7.675373e+03     1.600163e+05     2.313530e+05     2.313531e+05     4.252870e+05     
 
 Frequency computed using stapmat:
-1.394344e-02     1.394344e-02     6.366521e-02     7.655219e-02     7.655221e-02     1.037914e-01     1.872829e-01     1.872829e-01     1.925679e-01     3.132215e-01     
+1.394344e+01     1.394344e+01     6.366522e+01     7.655220e+01     7.655222e+01     1.037914e+02     
 
 
 
+TIME FOR Eigenvalues  . . . . . . . . . . . . . . = 0.05
 
-
- S O L U T I O N   T I M E   L O G   I N   S E C
-
-     TIME FOR INPUT PHASE  . . . . . . . . . . . . . . =         0.05
-     TIME FOR CALCULATION OF STIFFNESS MATRIX  . . . . =         0.07
-     TIME FOR FACTORIZATION OF STIFFNESS MATRIX  . . . = -63821268581.87
-     TIME FOR LOAD CASE SOLUTIONS  . . . . . . . . . . =         0.00
-
-     TIME FOR Eigenvalues  . . . . . . . . . . . . . . = 63821268582.09
-
-      T O T A L   S O L U T I O N   T I M E  . . . . . =         0.33

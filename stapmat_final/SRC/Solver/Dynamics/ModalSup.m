@@ -4,6 +4,12 @@ function ModalSup()
 global cdata;
 global sdata;
 
+IOUT = cdata.IOUT;
+
+fprintf('Modal Superposition Starts...\n')
+fprintf(IOUT,'Modal Superposition Starts...\n');
+time1 = clock;
+
 K = sdata.SPSTIFF; % 刚度阵
 M = sdata.SPMASS; % 质量阵
 Calpha = sdata.Calpha;
@@ -14,6 +20,9 @@ phi = sdata.EIGVECTOR;
 t_end = cdata.DSTIME; % 求解时间
 dt = 2*pi/max(w)/20;
 t = 0:dt:t_end; % 求解时间序列
+
+fprintf('dt = %e, t_end = %.2f, length(t) = %d\n',dt,t_end,length(t));
+fprintf(IOUT,'dt = %e, t_end = %.2f, length(t) = %d\n',dt,t_end,length(t));
 
 n_phi = size(phi,2);
 Q0 = sdata.R(:,1); % 节点载荷
@@ -33,14 +42,20 @@ u_modal = u_modal';
 
 % % 测试结果
 figure
-plot(t,u_modal(:,260),'LineWidth',1.5);
-xlabel('time(s)'); ylabel('u_{260}');
+output_node = 260;
+% output_node = 515;
+plot(t,u_modal(:,output_node),'LineWidth',1.5);
+xlabel('time(s)'); ylabel(['u_{',num2str(output_node),'}']);
 title('模态叠加');
 set(gca,'FontSize',16);
 % % 
 
 sdata.DYNADT = t;
 sdata.DYNADIS = u_modal;
+
+time2 = clock;
+fprintf('Modal Superposition ends. TIME = %.2f\n\n',etime(time2,time1));
+fprintf(IOUT,'TIME FOR Modal Superposition  . . . . . . . . . . . . . . = %.2f\n\n',etime(time2,time1));
 
 end
 

@@ -83,6 +83,7 @@ for N=1:cdata.NUMNP
 end
 sdata.ID = ID;
 sdata.NEQ = NEQ;
+sdata.MASS_DIRCTION = zeros(NEQ,NEQ);
 %% Read load data
 % Init control data
 NLCASE = cdata.NLCASE; % 载荷工况数

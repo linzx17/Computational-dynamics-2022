@@ -87,6 +87,10 @@ fprintf(IDAT_ANIM,'ZONE F=FEPOINT N = %5d E = %5d ET=BRICK C=CYAN \n',cdata.NUMN
 sdata.SPSTIFF = Matrix2Sparse(sdata.STIFF);
 sdata.SPMASS = Matrix2Sparse(sdata.MASS);
 
+% % % 测试：质量阵使用直接组装的协调质量阵
+% sdata.SPMASS = sdata.MASS_DIRCTION;
+% % % 
+
 end
 
 % % ----------------------- Functions -----------------------------------

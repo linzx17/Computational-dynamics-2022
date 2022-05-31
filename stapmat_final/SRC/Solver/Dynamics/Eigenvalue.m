@@ -16,6 +16,7 @@
 
 function Eigenvalue()
 
+
 global cdata;
 global sdata;
 
@@ -30,7 +31,11 @@ IOUT = cdata.IOUT;
 NUMNP = cdata.NUMNP;
 ID = sdata.ID;
 
-NUM_EIG = 10; % 求解前NUM_GIE阶的特征值
+fprintf('Eigenvalue calculation Starts...\n')
+fprintf(IOUT,'Eigenvalue calculation Starts...\n');
+time1 = clock;
+
+NUM_EIG = 6; % 求解前NUM_GIE阶的特征值
 if NUM_EIG > NEQ
     NUM_EIG = NEQ;
 end
@@ -115,6 +120,10 @@ fprintf(IOUT, '\n\n');
 
 fprintf(IOUT, '\n\n');
 
+time2 = clock;
+fprintf('Eigenvalue calculation ends. TIME = %.2f\n\n',etime(time2,time1));
+fprintf(IOUT,'TIME FOR Eigenvalues  . . . . . . . . . . . . . . = %.2f\n\n',etime(time2,time1));
+
 end
 
 % % ----------------------- Functions -----------------------------------
@@ -170,6 +179,7 @@ for i = 1:num
     end
     lambda(i) = rho2 - alpha^2;
     phi(:,i) = x2b / sqrt( x2b' * y2b );
+    fprintf('Eigvalues(%d): %e , number of iterations: %d\n',i,lambda(i),k);
 %     k
 end
 

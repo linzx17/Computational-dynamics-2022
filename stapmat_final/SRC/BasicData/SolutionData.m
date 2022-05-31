@@ -78,8 +78,11 @@ classdef SolutionData
         MAXA;     % int, MAXA(NEQ)
         STIFF;    % double ,STIFF(NWK), store the elements of stiffness matrix
         MASS;     % double ,MASS(NWK), store the elements of mass matrix
+        
         SPSTIFF;  % 刚度阵的matlab稀疏矩阵
         SPMASS;   % 质量阵的matlab稀疏矩阵
+        MASS_DIRCTION; % 直接组装的协调质量阵
+        MASS_NI;  % 质量阵的逆
         FRE_EIG;  % 调用eig函数求得的所有固有频率(Hz)
         FREQUENCY;% 固有频率(Hz) = sqrt(特征值)/2/pi
         EIGVALUE; % 特征值

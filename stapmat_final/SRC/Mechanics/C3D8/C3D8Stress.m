@@ -82,7 +82,7 @@ for N = 1:NUME
     %strain_n(6,8) 其中6表示有6中应变，8表示有8个节点
     %下面ELEII的顺序依次表示节点顺序
 
-    if (N ~=1)
+    if (NG ~=1)
         element_id = sdata.NUMEGEM(NG-1)+N;
     else
         element_id = N;

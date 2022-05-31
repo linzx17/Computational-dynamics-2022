@@ -104,7 +104,7 @@ for N = 1:NUME
 %     Me = Me_x;% 单元协调质量阵
     
     % SRC/Mechanics/ADDBAN.m
-    rank_Ke(rank_num) = rank(Ke);
+%     rank_Ke(rank_num) = rank(Ke);
     ADDBAN(Ke,Me,LM(:,N));
 end
 

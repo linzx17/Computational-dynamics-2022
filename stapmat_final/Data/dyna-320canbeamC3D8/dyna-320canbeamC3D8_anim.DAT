@@ -1,0 +1,4 @@
+TITLE = "Example : Job-26"
+VARIABLES= "X"   "Y"   "Z" 
+
+ZONE F=FEPOINT N =   525 E =   320 ET=BRICK C=CYAN 
