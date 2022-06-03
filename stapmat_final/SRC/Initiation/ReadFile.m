@@ -97,7 +97,7 @@ for N = 1:cdata.NLCASE % 载荷工况数
 % % % % 如果求解动力学问题，则存储第一个载荷工况下的动载荷类型、动载荷参数
     if (4 == cdata.MODEX) && (1 == N)
         cdata.DLTYPE = int64(tmp(3));
-        cdata.DLPAR = int64(tmp(4:7));
+        cdata.DLPAR = tmp(4:7);
     end
 % % % % 
     NLOAD = cdata.NLOAD;

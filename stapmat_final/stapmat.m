@@ -22,12 +22,15 @@ sdata = SolutionData;
 % Read InPut file
 % fileID = 'C3D20_3surf';
 % fileID = 'Job-real_large_freq_element384';
+% fileID = 'Job-real_large_dyna-1451';
+fileID = 'Job-real_large_dyna-1451-sin';
 % fileID = 'dyna-320canbeamC3D8';
 % fileID = 'Job-C3D20-canbeam-rho7800-40-dyna-800s-matlab';
 % fileID = 'Job-C3D8-cantilever-beam-rho7800-dyna';
 % fileID = 'C3D20_cantilever_beam';
 % fileID = 'Job_C3D20-cantilever-beam-element320';
-fileID = 'static-40canbeamC3D20';
+% fileID = 'static-40canbeamC3D20';
+% fileID = 'static-320canbeamC3D8';
 % fileID = 'C3D8_3surf';
 % mkdir Data\ C3D20_cantilever_beam;
 

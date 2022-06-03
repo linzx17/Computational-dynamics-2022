@@ -18,7 +18,7 @@ Cbeta = sdata.Cbeta;
 C = Calpha * M + Cbeta * K; % 阻尼阵
 
 fre_max = max(sdata.FRE_EIG);
-% % fre_max = max(sdata.FREQUENCY);
+fre_max = max(sdata.FREQUENCY);
 dtcr = 1 / fre_max / pi; % 临界时间步长
 coef1 = 0.8;
 dt = coef1 * dtcr;
@@ -34,13 +34,13 @@ Q = sdata.R(:,1); % 节点载荷
 u_alpha = generalized_alpha(K,M,C,Q,t,rho);
 
 % % 测试结果
-figure
-output_node = 260;
-% output_node = 515;
-plot(t,u_alpha(:,output_node),'LineWidth',1.5);
-xlabel('time(s)'); ylabel(['u_{',num2str(output_node),'}']);
-title('广义alpha');
-set(gca,'FontSize',16);
+% figure
+% % output_node = 260;
+% output_node = 685;
+% plot(t,u_alpha(:,output_node),'LineWidth',1.5);
+% xlabel('time(s)'); ylabel(['u_{',num2str(output_node),'}']);
+% title('广义alpha');
+% set(gca,'FontSize',16);
 % % 
 
 sdata.DYNADT = t;
@@ -49,6 +49,10 @@ sdata.DYNADIS = u_alpha;
 time2 = clock;
 fprintf('Generalized Alpha ends. TIME = %.2f\n\n',etime(time2,time1));
 fprintf(IOUT,'TIME FOR Generalized Alpha  . . . . . . . . . . . . . . = %.2f\n\n',etime(time2,time1));
+
+% % % % % 输出结果，跑完注释掉
+% save('E:\lzx2021\dyna\Job-real_large_dyna-1451\real_1451_u_alpha.mat','u_alpha');
+% % % % % 
 
 end
 

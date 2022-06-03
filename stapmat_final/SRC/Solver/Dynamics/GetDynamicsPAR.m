@@ -22,13 +22,13 @@ DLTYPE = cdata.DLTYPE;
 DLPAR = cdata.DLPAR;
 % FLOAD = sdata.R(:,1); % 节点载荷
 
-if 1 == DLTYPE
+if 2 == DLTYPE
     t1 = DLPAR(1);
     t4 = DLPAR(4);
     w = DLPAR(2);
     phi = DLPAR(3);
     FPAR = sin_dyload(t,t1,t4,w,phi); % 动载荷系数：sin函数
-elseif 2 == DLTYPE
+elseif 1 == DLTYPE
     t1 = DLPAR(1);
     t2 = DLPAR(2);
     t3 = DLPAR(3);

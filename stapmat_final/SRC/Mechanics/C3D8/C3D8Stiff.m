@@ -107,13 +107,13 @@ for N = 1:NUME
         end
     end
 % % % % 直接组装协调质量阵    
-    for i_Mex = 1:length(dof_id)
-        for j_Mex = 1:length(dof_id)
-            if (dof_id(i_Mex) ~= 0) && (dof_id(j_Mex) ~= 0)
-                MASS_DIRCTION( dof_id(i_Mex), dof_id(j_Mex) ) = MASS_DIRCTION( dof_id(i_Mex), dof_id(j_Mex) ) + Me_x( i_Mex, j_Mex );
-            end
-        end
-    end
+%     for i_Mex = 1:length(dof_id)
+%         for j_Mex = 1:length(dof_id)
+%             if (dof_id(i_Mex) ~= 0) && (dof_id(j_Mex) ~= 0)
+%                 MASS_DIRCTION( dof_id(i_Mex), dof_id(j_Mex) ) = MASS_DIRCTION( dof_id(i_Mex), dof_id(j_Mex) ) + Me_x( i_Mex, j_Mex );
+%             end
+%         end
+%     end
 % % % % 
     dV = mean(dV);
     alpha = rhoE * dV / sum(diag(Me_x));

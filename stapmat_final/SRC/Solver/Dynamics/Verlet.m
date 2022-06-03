@@ -19,7 +19,7 @@ Cbeta = sdata.Cbeta;
 C = Calpha * M + Cbeta * K; % 阻尼阵
 
 fre_max = max(sdata.FRE_EIG);
-% % fre_max = max(sdata.FREQUENCY);
+fre_max = max(sdata.FREQUENCY);
 dtcr = 1 / fre_max / pi; % 临界时间步长
 coef1 = 0.8;
 dt = coef1 * dtcr;
@@ -50,13 +50,13 @@ end
 u_verlet = u';
 
 % % 测试结果
-figure
-output_node = 260;
-% output_node = 515;
-plot(t,u_verlet(:,output_node),'LineWidth',1.5);
-xlabel('time(s)'); ylabel(['u_{',num2str(output_node),'}']);
-title('速度Verlet');
-set(gca,'FontSize',16);
+% figure
+% % output_node = 260;
+% output_node = 685;
+% plot(t,u_verlet(:,output_node),'LineWidth',1.5);
+% xlabel('time(s)'); ylabel(['u_{',num2str(output_node),'}']);
+% title('速度Verlet');
+% set(gca,'FontSize',16);
 % % 
 
 sdata.DYNADT = t;
@@ -66,5 +66,9 @@ sdata.DYNADIS = u_verlet;
 time2 = clock;
 fprintf('Velocity Verlet ends. TIME = %.2f\n\n',etime(time2,time1));
 fprintf(IOUT,'TIME FOR Velocity Verlet  . . . . . . . . . . . . . . = %.2f\n\n',etime(time2,time1));
+
+% % % % % 输出结果，跑完注释掉
+% save('E:\lzx2021\dyna\Job-real_large_dyna-1451\real_1451_u_verlet.mat','u_verlet');
+% % % % % 
 
 end

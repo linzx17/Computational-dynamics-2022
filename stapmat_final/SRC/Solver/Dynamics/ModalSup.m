@@ -19,6 +19,9 @@ w = sdata.FREQUENCY * 2 * pi; % 角频率
 phi = sdata.EIGVECTOR;
 t_end = cdata.DSTIME; % 求解时间
 dt = 2*pi/max(w)/20;
+if dt > t_end/10
+    dt = t_end/10;
+end
 t = 0:dt:t_end; % 求解时间序列
 
 fprintf('dt = %e, t_end = %.2f, length(t) = %d\n',dt,t_end,length(t));
@@ -41,13 +44,13 @@ u_modal = phi * finalq';
 u_modal = u_modal';
 
 % % 测试结果
-figure
-output_node = 260;
-% output_node = 515;
-plot(t,u_modal(:,output_node),'LineWidth',1.5);
-xlabel('time(s)'); ylabel(['u_{',num2str(output_node),'}']);
-title('模态叠加');
-set(gca,'FontSize',16);
+% figure
+% output_node = 260;
+% output_node = 685;
+% plot(t,u_modal(:,output_node),'LineWidth',1.5);
+% xlabel('time(s)'); ylabel(['u_{',num2str(output_node),'}']);
+% title('模态叠加');
+% set(gca,'FontSize',16);
 % % 
 
 sdata.DYNADT = t;
@@ -56,6 +59,10 @@ sdata.DYNADIS = u_modal;
 time2 = clock;
 fprintf('Modal Superposition ends. TIME = %.2f\n\n',etime(time2,time1));
 fprintf(IOUT,'TIME FOR Modal Superposition  . . . . . . . . . . . . . . = %.2f\n\n',etime(time2,time1));
+
+% % % % % 输出结果，跑完注释掉
+% save('E:\lzx2021\dyna\Job-real_large_dyna-1451\real_1451_u_modal.mat','u_modal');
+% % % % % 
 
 end
 

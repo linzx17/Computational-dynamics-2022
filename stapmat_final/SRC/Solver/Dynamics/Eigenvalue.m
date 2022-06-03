@@ -124,6 +124,13 @@ time2 = clock;
 fprintf('Eigenvalue calculation ends. TIME = %.2f\n\n',etime(time2,time1));
 fprintf(IOUT,'TIME FOR Eigenvalues  . . . . . . . . . . . . . . = %.2f\n\n',etime(time2,time1));
 
+% % % % % 输出结果，跑完注释掉
+% real_1451_freq = sdata.FREQUENCY;
+% save('E:\lzx2021\dyna\Job-real_large_dyna-1451\real_1451_freq.mat','real_1451_freq');
+% real_1451_zhenxing = sdata.EIGDISP;
+% save('E:\lzx2021\dyna\Job-real_large_dyna-1451\real_1451_zhenxing.mat','real_1451_zhenxing');
+% % % % % 
+
 end
 
 % % ----------------------- Functions -----------------------------------

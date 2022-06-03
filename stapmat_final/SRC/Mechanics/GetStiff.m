@@ -32,6 +32,10 @@ NUMEM = int64(0);%初始化单元总数
 sdata.NUMEGEM = zeros(cdata.NUMEG,1,'int8');%初始化各单元组中单元序号
 sdata.ELEII = zeros(cdata.NUMEM, sdata.NNODE, 'double'); % 单元内各个节点编号信息
 
+fprintf('Get Siffness and Mass Starts...\n')
+fprintf(IOUT,'Get Siffness and Mass Starts...\n');
+time1 = clock;
+
 for N = 1:cdata.NUMEG % 遍历单元组
     if (N ~= 1)
         fprintf(IOUT,'\n');
@@ -90,6 +94,10 @@ sdata.SPMASS = Matrix2Sparse(sdata.MASS);
 % % % 测试：质量阵使用直接组装的协调质量阵
 % sdata.SPMASS = sdata.MASS_DIRCTION;
 % % % 
+
+time2 = clock;
+fprintf('Get Siffness and Mass ends. TIME = %.2f\n\n',etime(time2,time1));
+fprintf(IOUT,'Get Siffness and Mass  . . . . . . . . . . . . . . = %.2f\n\n',etime(time2,time1));
 
 end
 

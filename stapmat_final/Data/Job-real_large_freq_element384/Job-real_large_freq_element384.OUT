@@ -6303,6 +6303,7 @@
             1                      1               1.00000e+02            2                      1               1.00000e+02
 
  E L E M E N T   G R O U P   D A T A
+Get Siffness and Mass Starts...
 
 
  E L E M E N T   D E F I N I T I O N
@@ -6721,6 +6722,8 @@
      NUMBER OF MATRIX ELEMENTS . . . . . . . . . . .(NWK) =   35619579
      MAXIMUM HALF BANDWIDTH  . . . . . . . . . . . .(MK ) =       8850
      MEAN HALF BANDWIDTH . . . . . . . . . . . . . .(MM ) =       3854
+Get Siffness and Mass  . . . . . . . . . . . . . . = 353.16
+
 
 
  LOAD CASE   1
@@ -20245,24 +20248,12 @@ Frequency computed using eig:
 7.014730e+01     1.983604e+02     2.901336e+02     3.167205e+02     4.452918e+02     1.085146e+03     
 
 Eigenvalues computed using stapmat:
-1.942592e+05     1.553352e+06     3.323200e+06     3.960146e+06     7.827968e+06     4.648752e+07     
+1.942592e+05     1.553352e+06     3.323200e+06     3.960145e+06     7.827969e+06     4.648751e+07     
 
 Frequency computed using stapmat:
-7.014730e+01     1.983604e+02     2.901338e+02     3.167202e+02     4.452918e+02     1.085146e+03     
+7.014730e+01     1.983604e+02     2.901338e+02     3.167201e+02     4.452918e+02     1.085146e+03     
 
 
 
-TIME FOR Eigenvalues  . . . . . . . . . . . . . . = 419.59
+TIME FOR Eigenvalues  . . . . . . . . . . . . . . = 422.95
 
-
-
- S O L U T I O N   T I M E   L O G   I N   S E C
-
-     TIME FOR INPUT PHASE  . . . . . . . . . . . . . . =         0.63
-     TIME FOR CALCULATION OF STIFFNESS MATRIX  . . . . =        81.89
-     TIME FOR FACTORIZATION OF STIFFNESS MATRIX  . . . =       207.97
-     TIME FOR LOAD CASE SOLUTIONS  . . . . . . . . . . =         2.49
-
-     TIME FOR Eigenvalues  . . . . . . . . . . . . . . =       419.59
-
-      T O T A L   S O L U T I O N   T I M E  . . . . . =       712.57

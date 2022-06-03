@@ -1,0 +1,4 @@
+TITLE = "Example : Job-real_large_dyna-1451"
+VARIABLES= "X"   "Y"   "Z" 
+
+ZONE F=FEPOINT N =  3065 E =   315 ET=BRICK C=CYAN 

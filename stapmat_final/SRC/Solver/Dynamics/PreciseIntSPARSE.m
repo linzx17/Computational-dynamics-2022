@@ -1,4 +1,5 @@
 % % 具有矩阵稀疏化的精细积分法
+% % 第二版精细积分
 function PreciseIntSPARSE()
 
 global cdata;
